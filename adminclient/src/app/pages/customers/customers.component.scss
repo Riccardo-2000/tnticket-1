@@ -1,0 +1,146 @@
+.modificaTicket {
+  font-size: large;
+  font-weight: bold;
+}
+
+.titleItems {
+  font-size: large;
+  font-weight: bold;
+}
+
+.borderCustom {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btnCustomModal {
+  background: rgb(255, 99, 132);
+  color: white;
+  font-weight: bold;
+}
+
+.appendCustom {
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: red;
+  border-radius: 0px;
+}
+.searchCustom {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0px;
+  box-shadow: none;
+}
+.searchCustom:focus {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-radius: 0px;
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.appendCustomCreate {
+  background: transparent;
+}
+.appendCustomDelete {
+  background: transparent;
+  border-left: none;
+}
+.toDelete{
+  border-right: none;
+}
+
+.numbersCompany,.locationsCompany {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+.inputCustom {
+  border: none;
+  background: transparent;
+  color: black;
+  border-radius: 0px !important;
+  border-bottom:2px solid black;
+}
+
+.appendInput {
+  border-right: none;
+}
+
+.imageToView {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  img {
+    width: 10rem;
+  }
+  .btnCustomDeleteImage {
+    background: black;
+    color: white;
+  }
+  .btnCustomDeleteImage:focus {
+    background: black;
+    color: white;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+
+
+
+
+@media screen and (max-width: 400px) {
+
+  .operator {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+
+  .customer {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 580px) {
+  .dataInsert {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .data {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 880px) {
+  .priority {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+  .iconsTable {
+    display: none;
+  }
+}

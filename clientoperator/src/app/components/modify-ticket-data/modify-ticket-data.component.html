@@ -1,0 +1,114 @@
+<ion-header lines="none">
+    <ion-grid>
+      <ion-row>
+        <ion-list>
+          <ion-list-header class="">
+            <div class="headerList">
+              <p class="titleList">Modifica Ticket</p>
+              <div class="close">
+                <ion-icon (click)="dismissModal()" name="close-outline"></ion-icon>
+              </div>
+            </div>
+          </ion-list-header>
+        </ion-list>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
+
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="modifyTicketData">
+            <div class="insertNewCustomer">
+              <div class="name ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Titolo</ion-label>
+                  <ion-input value="{{ticketData?.title}}" formControlName="title" class="border-gradient border-gradient-red" type="text"></ion-input>
+                </ion-item>
+              </div>
+              <div class="categoria ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Descrizione</ion-label>
+                  <ion-input  value="{{ticketData?.description}}" formControlName="description" class="border-gradient border-gradient-red" type="text"></ion-input>
+                </ion-item>
+              </div>
+              <div class="categoria ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Nome Referente</ion-label>
+                  <ion-input  value="{{ticketData?.ticket_reference_name}}" formControlName="ticket_reference_name" class="border-gradient border-gradient-red" type="text"></ion-input>
+                </ion-item>
+              </div>
+              <div class="categoria ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Numero Referente</ion-label>
+                  <ion-input  value="{{ticketData?.ticket_reference_number}}" formControlName="ticket_reference_number" class="border-gradient border-gradient-red" type="text"></ion-input>
+                </ion-item>
+              </div>
+              <div class="categoria ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label class="labelOperatività">Uscita On Site</ion-label>
+                    <ion-checkbox (ionFocus)="changeCheck(ticketData?._id)" color="primary"  slot="end" value="{{ticketData?.external}}" [checked]="ticketData?.external"></ion-checkbox>
+                </ion-item>
+              </div>
+              <div *ngIf="ticketData?.external === true" class="categoria ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Località Referente</ion-label>
+                  <ion-input value="{{ticketData?.ticket_reference_location}}" formControlName="ticket_reference_location" class="border-gradient border-gradient-red" type="text"></ion-input>
+                </ion-item>
+              </div>
+              <div class="telefono ion-padding-bottom">
+                <ion-item lines="none">
+                  <ion-label position="stacked">Data Intervento</ion-label>
+                  <div class="dataInterv">
+                    <ion-input  value="{{ticketData?.ticket_date}}" formControlName="ticket_date" class="border-gradient border-gradient-red" type="date"></ion-input>
+                    <span>{{ticketData?.ticket_date.slice(0,10)}}</span>
+                  </div>
+                </ion-item>
+              </div>
+              <div class="locazione ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label>Tecnico Incaricato</ion-label>
+                    <ion-select placeholder="{{operatorUsername?.username}}" value="{{ticketData?.operator_id?._id}}" formControlName="operator_id" interface="action-sheet">
+                        <ion-select-option *ngFor="let tech of allTechs" value="{{tech?._id}}" >{{tech?.username}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+              </div>
+              <div class="urgenza ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label>Urgenza</ion-label>
+                    <ion-select placeholder="{{ticketData?.priority}}" value="{{ticketData?.priority}}" formControlName="priority" interface="action-sheet">
+                        <ion-select-option value="low">Bassa</ion-select-option>
+                        <ion-select-option value="medium">Media</ion-select-option>
+                        <ion-select-option value="high">Alta</ion-select-option>
+                    </ion-select>
+                </ion-item>
+              </div>
+              <div class="surname ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label>Categoria</ion-label>
+                    <ion-select placeholder="{{ticketData?.category?.name}}" value="{{ticketData?.category?._id}}" formControlName="category" interface="action-sheet">
+                      <ion-select-option *ngFor="let category of categoriesData" value="{{category?._id}}">{{category.name}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+              <div class="status ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label>Status</ion-label>
+                    <ion-select placeholder="{{ticketData?.status}}" value="{{ticketData?.status}}"  formControlName="status" interface="action-sheet">
+                      <ion-select-option *ngFor="let status of statusesData?.statuses" value="{{status}}">{{status}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+              </div>
+              <div class="submit">
+                <ion-item lines="none">
+                  <button (click)="presentAlert()" type="submit">Modifica</button>
+                </ion-item>
+              </div>
+            </div>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+

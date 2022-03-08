@@ -1,0 +1,511 @@
+<div class="row mx-2">
+  <div class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard">
+      <div class="form-row py-3 px-2 w-100">
+        <div class="col-12 mb-3 mb-md-0">
+          <form>
+            <div class="form-group form-inline-block">
+              <label class="px-2" for="">Full text search: </label>
+              <input #searchInput class="form-control ml-2" type="text" [formControl]="filter" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard">
+      <div class="row text-center py-4">
+        <div class="col">
+          Ore totali clienti
+          <span *ngIf="customerWithoutContract">senza contratto:</span>
+          <span *ngIf="!customerWithoutContract">con contratto:</span>
+          {{totHoursToFatt}}
+        </div>
+        <div class="col">
+          <p>
+
+            Con/senza contratto
+            <label class="switch mx-2">
+              <input (change)="changeContract()" type="checkbox" #toggleSwitch>
+              <span class="slider round"></span>
+            </label>
+          </p>
+          <p>
+
+            Visualizza vecchio contratto
+            <label class="switch mx-2">
+              <input (change)="oldYearContract()" type="checkbox" #toggleSwitch>
+              <span class="slider round"></span>
+            </label>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard">
+      <div class="search w-100">
+        <table class="table  table-striped">
+          <thead>
+            <tr>
+              <th scope="col action">Azioni</th>
+              <th scope="col title">Nome</th>
+              <th>Ore contratto</th>
+              <th>Ore da fatturare
+                <button (click)="sort('hToInvoice')" type="submit" class=" border-0 bg-light">
+                  <span *ngIf="!invoiceSort">
+                    ▼ 
+                  </span>
+                  <span *ngIf="invoiceSort">
+                    ▲ 
+                  </span>
+                </button>
+                
+                </th>
+              <th>Attività On site
+                <button (click)="sort('onSite')" type="submit" class=" border-0 bg-light">
+                  <span *ngIf="!onsiteSort">
+                  ▼ 
+                </span>
+                <span *ngIf="onsiteSort">
+                  ▲ 
+                </span>
+               </button>
+              </th>
+              <th>Data ultimo ticket
+                <button (click)="sort('lastTicket')" type="submit" class=" border-0 bg-light"> 
+                  <span *ngIf="!lastTicketSort">
+                    ▼ 
+                  </span>
+                  <span *ngIf="lastTicketSort">
+                    ▲ 
+                  </span>
+                </button>
+              </th>
+              <th>Inizio contratto
+                <button (click)="sort('inizioContratto')" type="submit" class=" border-0 bg-light">
+                  <span *ngIf="!startContractSort">
+                    ▼ 
+                  </span>
+                  <span *ngIf="startContractSort">
+                    ▲ 
+                  </span>
+                   </button>
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr
+              *ngFor="let customer of customers$ | async  | slice: (page-1) * 15 : (page-1) * 15 + 15 ; let t = index">
+              <ng-container>
+                <th scope="row">
+                  <i (click)="deleteCustomer(customer?._id , t)" class="fas fa-times pr-2 iconsTable"></i>
+                  <i (click)="open(content,customer?._id,true)" class="fas fa-eye px-2 iconsTable"></i>
+                  <i (click)="customerDisable(customer._id)" class="fa fa-minus" aria-hidden="true"
+                    title="Disattiva Cliente"></i>
+                  <i (click)="open(content,customer?._id,false)" class="fas px-2 fa-ticket-alt"></i>
+                  <i (click)="goToTicketsAndCreate(customer?._id)" class="fas pl-2 fa-plus-circle"></i>
+                  <i (click)="openCredentials(credentials,customer?._id)" class=" pl-2 fas fa-key"></i>
+                  <i [routerLink]="['/customerDetail', customer?._id,oldcontract]" class="fas fa-clipboard-list px-3 iconsTable"
+                    title="Dettaglio Cliente"></i>
+
+                </th>
+                <td scope="row">
+                  <ngb-highlight [result]="customer.company_name" [term]="filter.value"
+                    [highlightClass]="'colorHiglight'"></ngb-highlight>
+                </td>
+                <td>
+                  <div *ngIf="customer.contract_hours">
+
+                    <ngb-highlight [result]="customer?.hoursused" [term]="filter.value">
+                    </ngb-highlight> /
+                    <ngb-highlight [result]="customer.contract_hours" [term]="filter.value">
+                    </ngb-highlight>
+                  </div>
+                  <div class="pl-5" *ngIf="!customer.contract_hours">-</div>
+                </td>
+                <td>
+                  <div>
+                    <ngb-highlight [result]="customer.contract_hoursToFatt" [term]="filter.value">
+
+                    </ngb-highlight>
+                  </div>
+                </td>
+                <td>
+                  <ngb-highlight [result]="customer.hoursOnSite" [term]="filter.value">
+                  </ngb-highlight>
+
+                </td>
+                <td>
+                  <ngb-highlight [result]="customer.lastTicketDate | date: 'd/MM/yyy HH:mm'" [term]="filter.value">
+                  </ngb-highlight>
+                </td>
+                <td>
+                  <ngb-highlight *ngIf="customer.contract_start " [result]="customer.contract_start  | date: 'd/MM/yyy'"
+                    [term]="filter.value">
+                  </ngb-highlight>
+                  <div *ngIf="!customer.contract_start">Nessun contratto</div>
+
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+
+          <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin mx-auto my-3 "></i>
+        </div>
+
+        <ngb-pagination *ngIf="(customers$ | async)?.length > 0" class="d-flex justify-content-center" size="sm"
+          [(page)]='page' [pageSize]="15" [collectionSize]="(customers$ | async)?.length"></ngb-pagination>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard py-3 px-4">
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Clienti disattivati
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div class="mt-5 text-center ">
+          <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin mx-auto my-3 "></i>
+
+          <table class="py-5 table  table-striped">
+            <thead>
+              <tr>
+
+
+                <th>
+                  Azioni
+                </th>
+                <th>
+                  Nome
+                </th>
+                <th>
+                  Ore contratto
+                </th>
+                <th>
+                  Numero di tickets
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let deactCustomer of deactivatedCustomers$ | async">
+                <th>
+
+                  <i (click)="deleteCustomer(deactCustomer?._id , t)" class="fas fa-times pr-2 iconsTable"></i>
+                  <i (click)="open(content,deactCustomer?._id,true)" class="fas fa-eye px-2 iconsTable"></i>
+                  <i (click)="customerRiable(deactCustomer._id)" class="fa fa-plus" aria-hidden="true"
+                    title="Riattiva Cliente"></i>
+                  <i (click)="open(content,deactCustomer?._id,false)" class="fas px-2 fa-ticket-alt"></i>
+                  <i (click)="goToTicketsAndCreate(deactCustomer?._id)" class="fas pl-2 fa-plus-circle"></i>
+                  <i (click)="openCredentials(credentials,deactCustomer?._id)" class=" pl-2 fas fa-key"></i>
+
+                </th>
+                <td>
+                  {{deactCustomer.company_name}}
+                </td>
+                <td>
+                  {{deactCustomer.contract_hours}}
+                </td>
+                <td>
+                  {{deactCustomer.tickets.length}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-expansion-panel>
+
+
+    </div>
+  </div>
+  <div class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard py-3 px-4">
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom01">Nome Azienda</label>
+          <input name="company_name" type="text" class="form-control" placeholder="Nome Azienda"
+            [(ngModel)]="newCustomer.company_name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom02">Nome Referente</label>
+          <input type="text" class="form-control" placeholder="Nome Referente"
+            [(ngModel)]="newCustomer.company_reference">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustomUsername">Recapito/i Telefonico</label>
+          <div class="input-group">
+            <input type="text" class="form-control appendInput" placeholder="Numero"
+              aria-describedby="inputGroupPrepend" [(ngModel)]="company_number">
+            <div class="input-group-append">
+              <span class="input-group-text appendCustomCreate"><i (click)="addNumbers()"
+                  class="fas fa-plus"></i></span>
+            </div>
+          </div>
+          <div *ngFor="let number of numbersToAdd ; let c = index" class="input-group">
+            <input type="text" class="form-control appendInput" [value]="number" placeholder="Locazioni"
+              aria-describedby="inputGroupPrepend" [(ngModel)]="numbersToAdd[c]">
+            <div class="input-group-append">
+              <span class="input-group-text appendCustomCreate"><i (click)="deleteNumber(c)"
+                  class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustomUsername">Locazione/i</label>
+          <div class="input-group">
+            <input type="text" class="form-control appendInput" placeholder="Locazioni"
+              aria-describedby="inputGroupPrepend" [(ngModel)]="company_locations">
+            <div class="input-group-append">
+              <span class="input-group-text appendCustomCreate"><i (click)="addLocations()"
+                  class="fas fa-plus"></i></span>
+            </div>
+          </div>
+          <div *ngFor="let location of locationsToAdd ; let x = index" class="input-group">
+            <input type="text" class="form-control appendInput" [value]="location" placeholder="Locazioni"
+              aria-describedby="inputGroupPrepend" [(ngModel)]="locationsToAdd[x]">
+            <div class="input-group-append">
+              <span class="input-group-text appendCustomCreate"><i (click)="deleteLocation(x)"
+                  class="fas fa-times"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 ">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Categoria Cliente</label>
+            <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="category">
+              <option [value]="1">Privato</option>
+              <option [value]="0">Azienda</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="customerContract" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+              Cliente A Contratto
+            </label>
+          </div>
+        </div>
+        <div *ngIf="customerContract" class="col-md-12 mb-3">
+          <div class="form-group">
+
+            <label for="exampleFormControlSelect1">Ore Contratto</label>
+            <input type="number" class="form-control appendInput" [(ngModel)]="contractHours" placeholder="Numero ore"
+              aria-describedby="inputGroupPrepend">
+
+            <label for="exampleFormControlSelect1" class="mt-3">Inizio Contratto</label>
+            <input type="text" class="form-control appendInput" [(ngModel)]="contract_start" placeholder="Numero ore"
+              aria-describedby="inputGroupPrepend">
+
+          </div>
+        </div>
+        <div class="col-md-12 w-100 p-0">
+          <div class="w-100 custom-dropzone d-flex align-items-center justify-content-center m-auto" ngx-dropzone>
+            <ngx-dropzone (change)="onSelect($event)">
+              <ngx-dropzone-label>Trascina i tuoi file qui</ngx-dropzone-label>
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+              </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button (click)="createNewCustomer()" class="btn btn-primary w-100" type="submit">Crea</button>
+  </div>
+
+</div>
+
+
+<!-- Modale Credenziali -->
+<ng-template #credentials let-modal size="xl" centered>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-12 py-5">
+        <h5>Modifica Credenziali </h5>
+      </div>
+      <form [formGroup]="sendCredentials" class=" w-100" (ngSubmit)="sendNewCredentials()">
+
+        <div class="col-12">
+          <label for="username">Username</label>
+          <input type="text" formControlName="username" name="" id="username" class="form-control">
+        </div>
+        <div class="col-12 mt-2">
+          <label for="password">Password</label>
+          <input type="text" name="" formControlName="password" id="password" class="form-control">
+        </div>
+        <div class="col-12 col-md-12 py-3">
+
+          <button [disabled]="sendCredentials.invalid" type="submit" class="btn btn-primary w-100">Submit</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+<!-- Modale -->
+<ng-template #content let-modal size="xl" centered>
+  <div *ngIf="!showTickets">
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Tecnico</th>
+            <th scope="col">Inserimento</th>
+            <th scope="col">CTA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ticket of customerToEdit?.tickets">
+            <td>{{ticket?.ticket_number}}</td>
+            <td>{{ticket?.title}}</td>
+            <td>{{ticket?.description}}</td>
+            <td>{{ticket?.operator_name}}</td>
+            <td>{{ticket?.createdAt}}</td>
+            <td>
+              <i (click)="goToTicketsAndFill(ticket?._id)" class="fas fa-edit"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="showTickets">
+    <div *ngIf="customerToEdit" class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-6 my-3">
+            <p class="titleItems">Nome Cliente</p>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Nome Referente"
+              [(ngModel)]="customerToEdit.company_name">
+          </div>
+          <div class="col-12 col-md-6 my-3">
+            <p class="titleItems">Nome Referente</p>
+            <input type="text" class="form-control" id="validationCustom02" placeholder="Nome Referente"
+              [(ngModel)]="customerToEdit.company_reference">
+          </div>
+          <div class="col-12 col-md-6 my-3">
+            <p class="titleItems">Recapito/i</p>
+            <div class="numbersCompany">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control appendInput" placeholder="Aggiungi Numero"
+                  aria-describedby="inputGroupPrepend" [(ngModel)]="company_number">
+                <div class="input-group-append">
+                  <span class="input-group-text appendCustomCreate"><i (click)="addNumbers()"
+                      class="fas fa-plus"></i></span>
+                </div>
+              </div>
+              <div *ngFor="let number of customerToEdit?.company_number ; let i = index" class="input-group mb-2">
+                <input type="text" class="form-control toDelete" [value]="number"
+                  [(ngModel)]="customerToEdit?.company_number[i]">
+                <div class="input-group-append">
+                  <span class="input-group-text appendCustomDelete"><i (click)="deleteNumber(i)"
+                      class="fas fa-times iconsTable"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 my-3">
+            <p class="titleItems">Locazione/i</p>
+            <div class="locationsCompany">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control appendInput" placeholder="Aggiungi Locazione"
+                  aria-describedby="inputGroupPrepend" [(ngModel)]="company_locations">
+                <div class="input-group-append">
+                  <span class="input-group-text appendCustomCreate"><i (click)="addLocations()"
+                      class="fas fa-plus"></i></span>
+                </div>
+              </div>
+              <div class="input-group mb-2" *ngFor="let location of customerToEdit?.company_locations ; let j = index">
+                <input type="text" class="form-control toDelete" [value]="location"
+                  [(ngModel)]="customerToEdit?.company_locations[j]">
+                <div class="input-group-append">
+                  <span class="input-group-text appendCustomDelete"><i (click)="deleteLocation(j)"
+                      class="fas fa-times iconsTable"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Tipologia</label>
+              <select class="form-control" id="exampleFormControlSelect1" [value]="customerToEdit?.category"
+                [(ngModel)]="customerToEdit.category">
+                <option [value]="1">Privato</option>
+                <option [value]="0">Azienda</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3 d-flex align-items-center">
+            <div class="form-check">
+              <input class="form-check-input" [value]="customerToEdit?.customer_disabled" type="checkbox"
+                [(ngModel)]="customerToEdit.customer_disabled">
+              <label for="exampleFormControlSelect1">
+                Blocco
+              </label>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3 d-flex align-items-center">
+            <div class="form-check">
+              <input class="form-check-input" [value]="customerToEdit?.contract_hours" type="checkbox"
+                [(ngModel)]="customerToEdit.contract_hours" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">
+                Cliente A Contratto
+              </label>
+            </div>
+          </div>
+          <div *ngIf="customerToEdit?.contract_hours > 0" class="col-md-12 mb-3">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Ore Contratto</label>
+              <input type="number" [value]="customerToEdit?.contract_hours" class="form-control appendInput"
+                [(ngModel)]="customerToEdit.contract_hours" placeholder="Numero ore"
+                aria-describedby="inputGroupPrepend">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Inizio Contratto</label>
+              <input type="text" [value]="customerToEdit?.contract_start" class="form-control appendInput"
+                [(ngModel)]="customerToEdit.contract_start" placeholder="Numero ore"
+                aria-describedby="inputGroupPrepend">
+            </div>
+          </div>
+          <div *ngFor="let image of customerToEdit?.images; let i = index" class="col-12 col-md-4 my-3">
+            <div class="imageToView">
+              <img class="img-fluid" [src]="image" alt="Immagine Cliente">
+              <p><button (click)="deleteImageFromArray(i)" class="btn btnCustomDeleteImage mt-2">Elimina</button></p>
+            </div>
+          </div>
+          <div class="col-md-12 w-100 p-0 my-2">
+            <div class="w-100 custom-dropzone d-flex align-items-center justify-content-center m-auto" ngx-dropzone>
+              <ngx-dropzone (change)="onSelectUpdate($event)">
+                <ngx-dropzone-label>Trascina i tuoi file qui</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesUpdate" [file]="f"
+                  [removable]="true" (removed)="onRemoveUpdate(f)">
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+          <button (click)="updateCustomer()" type="submit" class="btn btnCustomModal w-100">Modifica</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

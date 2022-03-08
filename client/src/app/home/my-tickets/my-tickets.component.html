@@ -1,0 +1,37 @@
+<!--<p>ore totali di lavorazione: {{total_minutes}}</p>-->
+<table *ngIf="tickets?.length > 0" class="table m-0" @fadeSlideInOut>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titolo</th>
+      <th scope="col">Status</th>
+      <th scope="col">Tecnico</th>
+      <th class="colDNoneSm" scope="col">Data Inserimento</th>
+      <th class="colDNoneSm" scope="col">Data Lavorazione</th>
+      <th class="colDNoneSm" scope="col">Minuti Lavorazione</th>
+      <th class="colDNoneSm" scope="col">Tipo di attivit&agrave;</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let ticket of tickets | paginate: { itemsPerPage: 25, currentPage: currentPage }" (click)="showDetail(ticket)">
+      <td>{{ticket?.ticket_number}}
+      <td>{{ticket?.title}}</td>
+      <td>{{ticket?.status}}</td>
+      <td>{{ticket?.operator_id?.username}}</td>
+      <td class="colDNoneSm" >{{ticket?.createdAt | date : 'dd/MM/yyyy'}}</td>
+      <td class="colDNoneSm" >{{ticket?.ticket_date | date : 'dd/MM/yyyy'}}</td>
+      <td class="colDNoneSm" >{{ticket?.minutes}}</td>
+      <td class="colDNoneSm" ><span *ngIf="ticket?.external">On site</span>
+      <span *ngIf="!ticket?.external">Remota</span></td>
+    </tr>
+
+  </tbody>
+
+</table>
+<div class="noTickets my-5 py-5 d-flex align-items-center justify-content-center text-center" *ngIf="tickets?.length == 0" @fadeSlideInOut>
+  Non Ci sono Ticket
+</div>
+
+<div *ngIf="tickets?.length > 25" class="w-100 d-flex justify-content-center  pt-5 m-0">
+  <pagination class="ml-auto" [totalItems]="totalItems" [itemsPerPage]="25" [(ngModel)]="currentPage"></pagination>
+</div>

@@ -1,0 +1,129 @@
+ion-content{
+    width: 100%;
+
+}
+
+ion-list {
+    width: 100%;
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+
+    }
+    .categoriaList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+
+
+  }
+  .headerList {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    .titleList {
+        width: 100%;
+        text-align: left;
+        font-weight: 700;
+        font-size: large;
+    }
+    .close {
+        ion-icon {
+            color: rgba(255,58,45,1);
+            padding-right: 5px;
+        }
+    }
+}
+.ticketInfo {
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    max-width: 70%;
+}
+.dataList {
+    margin-left: auto;
+}
+.ticketStatus {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: small !important;
+}
+.ticketNote {
+    font-size: small;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+.operatorTicket {
+    font-weight: bold;
+}
+.priorityShow {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .letterPriority{
+        margin-right:10px;
+        padding-top: 5px;
+    }
+}
+.priorityDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.letterPriorityUp {
+    margin-right:10px;
+    font-size: small;
+}
+.categoria {
+    font-weight: 600;
+    font-size: small;
+}
+.itemInput {
+    width: 100%;
+    .inputDiv {
+        width: 100%;
+        .searchInput {
+            width: 100%;
+            border: none;
+            background: white;
+            color: black;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            font-family: FontAwesome;
+        }
+        .searchInput:focus {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: white;
+            color: black;
+        }
+    }
+}
+.customerTitle {
+    font-weight: bold;
+    font-size: medium !important;
+    padding-bottom: 5px !important;
+}
+

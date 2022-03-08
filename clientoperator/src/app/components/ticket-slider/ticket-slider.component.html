@@ -1,0 +1,46 @@
+<ion-slides *ngIf="tickets$" pager="false" [options]="slideOpts">
+    <ion-slide *ngFor="let ticket of tickets$" class="border-gradient-left border-gradient-black" routerLink="/ticket/{{ticket._id}}">
+        <div class="ticket">
+            <div *ngIf="ticket?.customer_id?.customer_disabled === true" class="overlayBlocked">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <p class="descriptionBlock ion-margin-top ion-text-center">Blocco Amministrativo</p>
+            </div>
+            <div class="headerTicketUp">
+                <p *ngIf="ticket?.customer_id" class="availableCompany"><b>{{ticket?.customer_id.company_name.toUpperCase() }}</b>
+                </p>
+                <p class="title">
+                    {{ticket?.title}}
+                </p>
+            </div>
+            <p *ngIf="ticket?.ticket_reference_name" class="availableCompany"><b>{{ticket?.ticket_reference_name }}</b>
+            </p>
+            <div [hidden]="ticket?.reminder.length == 0" class="reminderIconDiv">
+                <ion-icon name="volume-high-outline"></ion-icon>
+                <p  class="reminderIcon">{{ticket?.reminder.length}}</p>
+            </div>
+            <div class="footerSlider">
+                <p *ngIf="ticket?.ticket_number" class="categoria">
+                    <b># {{ticket?.ticket_number}}</b>
+                </p>
+                <p *ngIf="ticket?.ticket_date" class="data ">
+                    {{ticket?.ticket_date.slice(0,10) | date:'d/MM/yyyy'}}
+                </p>
+                <div class="priorityDiv">
+                    <span *ngIf="ticket?.priority.valueOf() == 'high' " class="letterPriorityUp"><b>A</b></span>
+                    <span *ngIf="ticket?.priority.valueOf() == 'medium' " class="letterPriorityUp"><b>M</b></span>
+                    <span *ngIf="ticket?.priority.valueOf() == 'low' " class="letterPriorityUp"><b>B</b></span>
+                    <div class="status-{{ticket?.priority}}"></div>
+                </div>
+            </div>
+        </div>
+    </ion-slide>
+</ion-slides>
+<ion-slides *ngIf="!existedTicket" pager="false" [options]="slideOpts">
+    <ion-slide  class="border-gradient-left border-gradient-black">
+        <div class="ticket">
+            <p class="title">
+                Non Ci Sono Ticket da Assegnare
+            </p>
+        </div>
+    </ion-slide>
+</ion-slides>

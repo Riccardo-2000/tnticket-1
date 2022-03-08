@@ -1,0 +1,61 @@
+<app-header></app-header>
+<ion-content [scrollEvents]="true" >
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="searchBar">
+                    <!-- <ion-searchbar [(ngModel)]="criteriaText" placeholder="Cerca Cliente" (change)="searchCriteria($event.target.value)" type="text"  (ionClear)="getAllCustomer()" cancel-button-icon></ion-searchbar> -->
+                    <input id="search" #searchInput placeholder="Ricerca Cliente" class="ion-padding-vertical searchInputCustom" type="text">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-paddint-top">
+            <ion-col>
+                <ion-list *ngIf="(allCustomers$ | async) as allCustomers; else loader">
+                    <ion-list-header class="border-gradient-left border-gradient-black">
+                        <p class="titleList">Risultati Ricerca</p>
+                    </ion-list-header>
+                    <div *ngIf="searchLoaded" class="loaderDiv" >
+                        <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+                    </div>
+                    <ion-item *ngFor="let customer of allCustomers">
+                        <div class="ticketList">
+                            <div>
+                                <span class="categoriaList">
+                                    <ion-icon name="person-circle-outline"></ion-icon>
+                                    {{customer?.company_name}}
+                                </span>
+                                <span class="customerCategory">
+                                    <span *ngIf="customer?.category.valueOf() == 1">Privato</span>
+                                    <span *ngIf="customer?.category.valueOf() == 0">Azienda</span>
+                                </span>
+                            </div>
+                            <div class="dataList">
+                               <div *ngIf="customer?.images.length" class="imagesIcons">
+                                   <span>{{customer?.images.length}}</span>
+                                <ion-icon (click)="openImagesSlider(customer?.images,customer?._id)" name="images-outline"></ion-icon>
+                               </div>
+                                <ion-icon (click)="presentModalTicketByCustomer(customer?._id)" name="search-circle-outline"></ion-icon>
+                                <ion-icon [routerLink]="['/create-ticket',{id :  customer._id}]" name="add-outline"></ion-icon> <button (click)="presentModalEdit(customer?._id)" class="editButton">Edit</button>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-fab class="addButton" (click)="presentModal()" vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button >
+            <ion-icon  name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
+<ion-footer id="footer" #footer>
+    <app-tabs></app-tabs>
+</ion-footer>
+
+<ng-template #loader>
+    <div class="loaderDiv" >
+        <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+    </div>
+</ng-template>

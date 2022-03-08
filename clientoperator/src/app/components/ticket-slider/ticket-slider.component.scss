@@ -1,0 +1,105 @@
+ion-slides {
+    height: 150px;
+    width: 100%;
+
+}
+ion-slide {
+    --width: 100%;
+    .ticket {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 10px;
+        p {
+            width: 100%;
+        }
+        .title,.data {
+            font-size: small;
+            margin: 5px;
+        }
+        .title {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .title {
+            font-size: medium;
+        }
+        .data {
+            margin-left: 0;
+        }
+        .title {
+            font-size: small !important;
+            margin-left: 0px;
+        }
+
+    }
+    .categoria {
+        text-transform: lowercase;
+        font-weight: 600;
+        font-size: small;
+    }
+
+}
+.turn {
+    font-size:15px;
+    font-weight: 500;
+
+}
+.myTicketTitle {
+    font-weight: 600;
+}
+.allTickets {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    span {
+        font-size: small;
+        font-weight: 600;
+    }
+    button {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        background: black;
+        color: white;
+        padding:10px 15px;
+        border-radius: 5px;
+    }
+}
+
+
+.border-gradient {
+border-bottom: 2px solid;
+border-image-slice: 1;
+border-width: 3px;
+}
+
+.border-gradient-black-bottom {
+border-image-source: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,58,45,0.804359243697479) 73%);
+}
+.footerSlider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: auto;
+}
+ion-slide:focus  {
+    outline:none;
+}
+.priorityDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.letterPriorityUp {
+    margin-right:10px;
+    font-size: small;
+}

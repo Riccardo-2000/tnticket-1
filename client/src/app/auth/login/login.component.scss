@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.fontCustomer{
+  font-family: 'Lobster', cursive;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.rowC {
+
+  &::after {
+    position: absolute;
+    top:0;
+    left: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.158);
+    clip-path: polygon(100% 85%, 100% 0, 75% 100%, 0% 100%);
+
+  }
+
+
+}
+.formCustom {
+
+  input, label {
+    font-family:arial;
+    font-size:16px;
+    line-height:20px;
+  }
+  input {
+    display:block;
+    outline:none;
+    width:100%;
+    border: none;
+    background-color:#f3f3f3;
+    color:#444;
+    transition:background-color 0.25s ease;
+
+    & + label {
+      position:relative;
+      top:-30px;
+      left:5px;
+      color:#ccc;
+      pointer-events:none;
+      transition:all 0.25s ease;
+    }
+
+    &:focus, &:not(:placeholder-shown), &:-webkit-autofill {
+
+      background-color:#fff;
+      outline: none;
+      border-left:3px solid black;
+      border-radius: 0px;
+      box-shadow: none;
+
+      &+label {
+       top:-65px;
+       left:0px;
+       color:black;
+      }
+
+    }
+  }
+  button {
+
+    background: black;
+    border: 2px solid black;
+    color: white;
+    &:focus {
+      box-shadow: none;
+      outline: none;
+      background: black;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .rowC::after {
+    position: absolute;
+    top:0;
+    left: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.158);
+    clip-path: polygon(100% 89%, 100% 100%, 0 100%, 0% 100%);
+    // display: none;
+  }
+}

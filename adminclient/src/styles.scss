@@ -1,0 +1,207 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+
+.neuroShadowSide {
+  background: #ffff;
+  box-shadow:  9px 9px 23px #dadada,
+               -9px -9px 23px #ffffff;
+}
+.neuroShadowNavBar {
+  background: #ffff;
+  box-shadow:  9px 9px 23px #dadada,
+               -9px -9px 23px #ffffff;
+  border-radius: 5px;
+}
+
+
+.neuroShadowCard {
+  height: 100%;
+  border-radius: 10px;
+  background: #ffff;
+  box-shadow:  9px 9px 23px #dadada,
+               -9px -9px 23px #ffffff;
+}
+.border-right-red {
+  border-right: 3px solid rgb(255, 99, 132);
+}
+
+.border-right-bottom {
+  border-bottom: 3px solid rgb(255, 99, 132);
+}
+.colorHiglight{
+  background-color: yellow;
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+
+
+i {
+  cursor: pointer;
+}
+div,button:focus {
+  outline: none;
+  border: none;
+}
+
+
+.selectCustom{
+  border: none;
+  border-bottom: 3px solid black;
+  border-radius: 0px !important;
+}
+.btnCustom {
+  background: transparent;
+
+}
+.border-gradient-box{
+  border-width: 3px;
+  border-style: solid;
+  border-image:
+    linear-gradient(
+      to bottom,
+      red,
+      rgba(0, 0, 0, 0)
+    ) 1 1
+}
+.border-gradient-right{
+  border-width: 3px;
+  border-style: solid;
+  border-image:
+    linear-gradient(
+      to right,
+      red,
+      rgba(0, 0, 0, 0)
+    ) 1 1
+}
+
+ngx-dropzone,
+// .custom-dropzone {
+//   margin: 20px;
+// }
+
+.custom-dropzone {
+	height: 250px;
+	background: #333;
+	color: #fff;
+	border: 5px dashed rgb(235, 79, 79);
+	border-radius: 5px;
+  font-size: 20px;
+  width: 100%;
+}
+
+.custom-dropzone.ngx-dz-hovered {
+  border: 5px solid rgb(235, 79, 79);
+}
+ngx-dropzone-label {
+  border: none;
+}
+
+// => Valid Form Classes
+.validCustom{
+  border-bottom:3px solid green !important;
+}
+.invalidCustom{
+  border-bottom:3px solid  rgb(255, 99, 132) !important;
+}
+// => Media Queries
+
+@media screen and (max-width: 800px) {
+  .dCustom {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  ngb-pagination li {
+    display: none;
+  }
+}
+
+/*toggle*/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  margin-bottom: -0.5rem;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+
+// personalizzati
+
+.sizemin{
+  min-width: fit-content;
+}
+

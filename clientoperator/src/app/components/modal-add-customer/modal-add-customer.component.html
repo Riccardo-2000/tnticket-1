@@ -1,0 +1,116 @@
+<ion-header lines="none">
+    <ion-grid>
+        <ion-row>
+            <ion-list [hidden]="progress == 100">
+                <ion-list-header class="">
+                    <div class="headerList">
+                        <p class="titleList">Aggiungi Cliente</p>
+                        <div class="close">
+                            <ion-icon (click)="dismissModal($event)" name="close-outline"></ion-icon>
+                        </div>
+                    </div>
+                </ion-list-header>
+            </ion-list>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <div class="divOk" *ngIf="progress == 100">
+                <img  class="ok"  src="../../../assets/images/ok-1.1s-47px.png" alt="">
+            </div>
+            <ion-col>
+                <form [formGroup]="newCustomerData" (ngSubmit)="addCustomerWithImage()" enctype="multipart/form-data" method="POST">
+                    <div class="insertNewCustomer">
+                        <div class="name ion-padding-bottom">
+                            <ion-item lines="none">
+                                <ion-label position="stacked">Nome Azienda <br> <span class="requiredAlert">*  Campo Obbligatorio</span></ion-label>
+                                <ion-input formControlName="company_name" class="border-gradient border-gradient-red" type="text" required ></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="surname ion-padding-bottom">
+                            <ion-item lines="none">
+                                <ion-label position="stacked">Nome/Cognome Referente</ion-label>
+                                <ion-input formControlName="company_reference" class="border-gradient border-gradient-red" type="text"></ion-input>
+                            </ion-item>
+                        </div>
+
+                        <div  id="telefono" class="telefono ion-padding-bottom">
+                            <ion-item lines="none">
+                                <div class="labelTelefono">
+                                    <ion-label position="stacked">Recapito Telefonico</ion-label>
+                                    <ion-icon (click)="addInputFieldsNumbers()" name="add-outline"></ion-icon>
+                                </div>
+                                <div class="recapiti">
+                                    <p *ngFor="let number of numbers" class="number">{{number}}</p>
+                                </div>
+                                <ion-input id="numberInput" [(ngModel)]="inputNumberValue"  formControlName="company_number"  class="border-gradient border-gradient-red" type="tel"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="locazione ion-padding-bottom">
+                            <ion-item lines="none">
+                                <div class="labelLocations">
+                                    <ion-label position="stacked">Locazione/i</ion-label>
+                                    <ion-icon (click)="addInputFieldsAddress()" name="add-outline"></ion-icon>
+                                </div>
+                                <div class="locazioni">
+                                    <p *ngFor="let address of addresses" class="number">{{address}}</p>
+                                </div>
+                                <ion-input id="numberInput" [(ngModel)]="inputAddressValue"  formControlName="company_locations"  class="border-gradient border-gradient-red" type="text"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="category ion-padding-bottom">
+                            <span class="requiredAlert ion-padding-horizontal">*  Campo Obbligatorio</span>
+                            <ion-item lines="none">
+                                <ion-label><b>Categoria Cliente</b></ion-label>
+                                <ion-select formControlName="category" interface="action-sheet" required>
+                                    <ion-select-option  value=1>Privato</ion-select-option>
+                                    <ion-select-option  value=0>Azienda</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </div>
+                        <div class="contract ion-padding-bottom">
+                            <ion-item lines="none">
+                                <ion-label class="labelOperatività">Cliente A Contratto</ion-label>
+                                <ion-checkbox (ionChange)="contractToggle()"  color="primary" checked slot="end" value="" [checked]="contract"></ion-checkbox>
+                            </ion-item>
+                        </div>
+                        <div *ngIf="contract" class="contractHours ion-padding-bottom">
+                            <ion-item lines="none">
+                                <ion-label position="stacked" class="labelOperatività">Ore Contratto</ion-label>
+                                <ion-input type="number" placeholder="Inserisci ore Contratto"  class="border-gradient border-gradient-red" formControlName="contract_hours"></ion-input>
+                            </ion-item>
+                            <!-- <ion-item lines="none">
+                                <ion-label position="stacked" class="labelOperatività">Inizio Contratto</ion-label>
+                                <ion-input type="date" placeholder="Inserisci ore Contratto"  class="border-gradient border-gradient-red" formControlName="contract_start"></ion-input>
+                            </ion-item> -->
+                        </div>
+                        <div class="contract ion-padding-bottom">
+                            <ion-item lines="none">
+                                <label for="uploadPhoto" class="labelOperatività uploadImageLabel"> <ion-icon name="cloud-upload-outline"></ion-icon> Carica Immagini</label>
+                                <input id="uploadPhoto" (change)="imagesPreview($event)" type="file" formControlName="images" multiple/>
+                            </ion-item>
+                        </div>
+                        <div class="imagesPreviews ion-margin-bottom">
+                            <div *ngFor="let img of imgURL; let i = index" class="image">
+                                <img  [src]="img" height="80" width="80">
+                                <ion-icon (click)="removeImageToArray(i)" name="close-circle-outline"></ion-icon>
+                            </div>
+                        </div>
+                            <div class="progress ion-padding-horizontal ion-margin-bottom">
+                                <p *ngIf="progress != undefined">{{progress+'%'}}</p>
+                                <ion-progress-bar class="ion-padding-horizontal" [value]="progress"></ion-progress-bar>
+                            </div>
+                        <div class="submit">
+                            <ion-item lines="none">
+                                <button [disabled]="newCustomerData.invalid" type="submit">Aggiungi</button>
+                            </ion-item>
+                        </div>
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

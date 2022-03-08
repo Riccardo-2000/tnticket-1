@@ -1,0 +1,83 @@
+<app-header></app-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh()">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <ion-grid >
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-button (click)="doRefresh()">Aggiorna</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                
+                <ion-item lines="none" class="itemInput">
+                    <div class="inputDiv">
+                        <input #searchNotAssignedInput class="ion-padding-vertical searchNotAssignedInput"  [(ngModel)]="searchword" placeholder=" &#xf002; Cerca Nei Ticket" type="text">
+                    </div>
+                </ion-item>
+                <div *ngIf="searchLoaded" class="loaderDiv" >
+                    <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+                </div>
+
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-horizontal ion-padding-top">
+            <ion-col *ngIf="(ticketNotAssigned$ | async) as tickets ; else loader">
+                <div class="tickeIn  border-gradient border-gradient-red">
+                    <div class="myTicket">
+                        <p class="myTicketTitle">Ticket Disponibili</p>
+                    </div>
+                    <div class="cta" (click)="reverseTicketAvailable()">
+                        <ion-icon name="arrow-down-outline"></ion-icon>
+                        <ion-icon class="" name="arrow-up-outline"></ion-icon>
+                    </div>
+                </div>
+                <!-- <app-ticket-slider [tickets$]="ticketNotAssigned$ | async"></app-ticket-slider> -->
+                <app-ticket-list [tickets$]="tickets"></app-ticket-list>
+            </ion-col>
+        </ion-row>
+        <ion-row class=" ion-padding-top ion-margin-top">
+            <ion-col>
+                <div class="myTicket border-gradient border-gradient-black-bottom">
+                    <p class="myTicketTitle ion-padding-horizontal">I tuoi Ticket</p>
+                    <div (click)="reverseTicket()">
+                        <ion-icon name="arrow-down-outline"></ion-icon>
+                        <ion-icon class="ion-padding-end" name="arrow-up-outline"></ion-icon>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col >
+                <ion-item lines="none" class="itemInput">
+                    <div class="inputDiv">
+                        <input #searchInput class="ion-padding-vertical searchInput" [(ngModel)]="searchword" placeholder=" &#xf002; Cerca Nei Tuoi Ticket
+                        " type="text">
+                    </div>
+                </ion-item>
+                <div *ngIf="searchLoaded" class="loaderDiv" >
+                    <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+                </div>
+                <div *ngIf="showNoTicket" class="noTickets">
+                    <p class="ion-padding-horizontal">Non hai Ticket Assegnati</p>
+                </div>
+                <ng-container *ngIf="(myTickets$ | async) as myTickets ; else loader">
+                    <app-ticket-list [tickets$]="myTickets"></app-ticket-list>
+                </ng-container>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+
+<ng-template #loader>
+    <div class="loaderDiv" >
+        <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+    </div>
+</ng-template>
+
+<ion-footer>
+    <app-tabs></app-tabs>
+</ion-footer>

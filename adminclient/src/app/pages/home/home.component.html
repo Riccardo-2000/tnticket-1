@@ -1,0 +1,95 @@
+<div class="row mx-2">
+  <!-- <div class="col-12 col-md-12">
+    <app-navbar></app-navbar>
+  </div> -->
+  <div class="col-12 col-md-12">
+    <div class="row pt-3">
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
+        <div class="neuroShadowCard border-right-red py-2 px-3">
+          <p>Nuovi clienti in un mese</p>
+          <p><ngb-progressbar [showValue]="true" type="primary" [striped]="true" [animated]="true" [value]="25"></ngb-progressbar></p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
+        <div class="neuroShadowCard border-right-red py-2 px-3">
+          <p>Nuovi tickets in un mese</p>
+          <p><ngb-progressbar [showValue]="true" type="success" [striped]="true" [animated]="true" [value]="45"></ngb-progressbar></p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="neuroShadowCard border-right-red py-2 px-3">
+          <p>Nuovi clienti in un mese</p>
+          <p><ngb-progressbar [showValue]="true" type="danger" [striped]="true" [animated]="true" [value]="75"></ngb-progressbar></p>
+        </div>
+      </div>
+
+      <!-- Grafici -->
+      <div class="col-12 col-md-8 pt-3">
+        <div class="neuroShadowCard py-2 px-3">
+          <canvas width="100" height="50" id="tickets"></canvas>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 pt-3">
+        <div class="neuroShadowCard py-2 px-3">
+          <canvas width="100" height="100" id="customers"></canvas>
+        </div>
+      </div>
+      
+      <div class="col-12 col-md-12 my-3">
+        <div class="neuroShadowCard border-right-bottom">
+          <span class="px-3 tablesTitle">Tickets Urgenti</span>
+          <table class="table  table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Titolo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col" class="dCustom">Tecnico</th>
+                <th scope="col" class="dCustom">Urgenza</th>
+                <th scope="col" class="dCustom">Status</th>
+                <th scope="col" class="dCustom">Data</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="(priorityHighTickets$ | async) as ticketsHigh">
+              <tr *ngFor="let ticket of ticketsHigh">
+                <th scope="row">{{ticket?.title}}</th>
+                <td>{{ticket?.customer_id.company_name}}</td>
+                <td class="dCustom">{{ticket?.operator_id?.username}}</td>
+                <td class="dCustom">{{ticket?.priority}}</td>
+                <td class="dCustom">{{ticket?.status}}</td>
+                <td class="dCustom">{{ticket?.ticket_date?.slice(0,10) | date:'d/MM/yyyy'}}</td>
+                <!-- <td class="dCustom">{{ticket?.ticket_date}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-12 col-md-12 my-3">
+        <div class="neuroShadowCard border-right-bottom">
+          <span class="px-3 tablesTitle">Tickets in Ritardo</span>
+          <table class="table  table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Titolo</th>
+                <th scope="col">Cliente</th>
+                <th scope="col" class="dCustom">Tecnico</th>
+                <th scope="col" class="dCustom">Urgenza</th>
+                <th scope="col" class="dCustom">Status</th>
+                <th scope="col" class="dCustom">Data</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="(priorityTicketDelay$ | async) as ticketsDelay" >
+              <tr *ngFor="let ticket of ticketsDelay">
+                <th scope="row">{{ticket?.title}}</th>
+                <td>{{ticket?.customer_id.company_name}}</td>
+                <td class="dCustom">{{ticket?.operator_id?.username}}</td>
+                <td class="dCustom">{{ticket?.priority}}</td>
+                <td class="dCustom">{{ticket?.status}}</td>
+                <td class="dCustom">{{ticket?.ticket_date.slice(0,10) | date:'d/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

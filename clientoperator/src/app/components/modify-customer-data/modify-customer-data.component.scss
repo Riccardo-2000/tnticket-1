@@ -1,0 +1,131 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+ion-content{
+    width: 100%;
+
+}
+
+ion-list {
+    width: 100%;
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+    }
+    .categoriaList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .headerList {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        .titleList {
+            width: 100%;
+            text-align: left;
+            font-weight: 700;
+            font-size: large;
+        }
+        .close {
+            ion-icon {
+                color: rgba(255,58,45,1);
+                padding-right: 5px;
+            }
+        }
+    }
+
+
+}
+
+.insertNewCustomer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.name,.surname,.dataInserimento,.telefono,.submit,.locazione {
+    width: 100%;
+    ion-item {
+        width: 100%;
+        ion-label {
+            font-weight: 600;
+        }
+    }
+    button {
+        width: 100%;
+        color: white;
+        background: black;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+}
+
+ .delete {
+    width: 100%;
+    button {
+        width: 100%;
+        color: white;
+        background:rgba(255,58,45,1);
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+ }
+
+
+
+ .inputs {
+     width:100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     flex-direction: row;
+ }
+ .inputs-wrapper {
+    width:100%;
+ }
+
+
+ .locationsInputs{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+ }
+ .locationInputsWrapper{
+    width:100%;
+ }
+
+
+.block {
+    width: 100%;
+    ion-checkbox {
+        --background-checked:rgba(255,58,45,1);
+        --border-color-checked:black;
+        --border-color:rgba(255,58,45,1);
+    }
+}
+.contractHours {
+    width: 100%;
+}

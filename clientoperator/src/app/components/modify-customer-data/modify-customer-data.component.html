@@ -1,0 +1,91 @@
+<ion-header lines="none">
+  <ion-grid>
+    <ion-row>
+      <ion-list>
+        <ion-list-header class="">
+          <div class="headerList">
+            <p class="titleList">Modifica Cliente</p>
+            <div class="close">
+              <ion-icon (click)="dismissModal(id)" name="close-outline"></ion-icon>
+            </div>
+          </div>
+        </ion-list-header>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="modifyCustomerData" (ngSubmit)="presentAlertModify()">
+          <div class="insertNewCustomer">
+            <div class="name ion-padding-bottom">
+              <ion-item lines="none">
+                <ion-label position="stacked">Nome Azienda</ion-label>
+                <ion-input value="{{dataCustomerToDisplay?.company_name}}" formControlName="company_name" class="border-gradient border-gradient-red" type="text"></ion-input>
+              </ion-item>
+            </div>
+            <div class="surname ion-padding-bottom">
+              <ion-item lines="none">
+                <ion-label position="stacked">Nome/Cognome Referente</ion-label>
+                <ion-input value="{{dataCustomerToDisplay?.company_reference}}" formControlName="company_reference" class="border-gradient border-gradient-red" type="text"></ion-input>
+              </ion-item>
+            </div>
+            <div class="telefono ion-padding-bottom">
+              <ion-item lines="none">
+                <ion-label position="stacked">Recapito Telefonico</ion-label>
+                <div class="inputs-wrapper">
+                  <div class="inputs" *ngFor="let number of dataCustomerToDisplay?.company_number; let i = index" id="input-{{i}}">
+                    <ion-input  placeholder="{{number}}" value="{{number}}" name="company_number[]" formControlName="company_number" class="border-gradient border-gradient-red" type="text"></ion-input>
+                    <ion-icon (click)="deleteNumber(i)" name="close-circle"></ion-icon>
+                  </div>
+                  <div  class="inputs">
+                    <ion-input placeholder="Inserisci nuovo numero" [(ngModel)]="newNumber" formControlName="company_number" class="border-gradient border-gradient-red" type="text"></ion-input>
+                  </div>
+                </div>
+              </ion-item>
+            </div>
+            <div class="locazione ion-padding-bottom">
+              <ion-item lines="none">
+                <ion-label position="stacked">Locazione/i</ion-label>
+                <div class="locationInputsWrapper">
+                  <div class="locationsInputs" *ngFor="let location of dataCustomerToDisplay?.company_locations; let t = index" id="inputAddress-{{t}}">
+                    <ion-input placeholder="{{location}}" formControlName="company_locations" class="border-gradient border-gradient-red" type="text"></ion-input>
+                    <ion-icon (click)="deleteLocation(t)" name="close-circle"></ion-icon>
+                  </div>
+                  <div  class="inputs">
+                    <ion-input placeholder="Inserisci nuovo indirizzo" [(ngModel)]="newAddress" formControlName="company_locations" class="border-gradient border-gradient-red" type="text"></ion-input>
+                  </div>
+                </div>
+              </ion-item>
+            </div>
+            <div *ngIf="dataCustomerToDisplay?.contract_hours" class="contractHours ion-padding-bottom">
+                <ion-item lines="none">
+                    <ion-label position="stacked" class="labelOperatività">Ore Contratto</ion-label>
+                    <ion-input formControlName="contract_hours" placeholder="{{dataCustomerToDisplay?.contract_hours}}" type="number" [(ngModel)]="contract_hours" value="{{dataCustomerToDisplay?.contract_hours}}"  class="border-gradient border-gradient-red" formControlName="contract_hours"></ion-input>
+                </ion-item>
+            </div>
+            <div class="block">
+                <ion-item lines="none">
+                    <ion-label class="labelOperatività">Blocco Amministrativo</ion-label>
+                    <ion-checkbox (click)="alertSendBlock()"  color="primary" slot="end" value="{{dataCustomerToDisplay?.customer_disabled}}" [checked]="block"></ion-checkbox>
+                </ion-item>
+            </div>
+            <div class="submit">
+              <ion-item lines="none">
+                <button type="submit">Modifica</button>
+              </ion-item>
+            </div>
+          </div>
+        </form>
+        <div class="delete">
+          <ion-item lines="none">
+            <button (click)="presentAlertConfirm(dataCustomerToDisplay?._id)" type="submit">Cancella</button>
+          </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

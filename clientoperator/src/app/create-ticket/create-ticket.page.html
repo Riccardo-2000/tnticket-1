@@ -1,0 +1,242 @@
+<app-header></app-header>
+<ion-content [scrollEvents]="true" (ionScrollEnd)="logScrollEnd($event)">
+    <ion-grid>
+        <ion-row>
+            <div class="divOk" *ngIf="progress == 100">
+                <img class="ok" src="../../assets/images/ok-1.1s-47px.png" alt="">
+            </div>
+            <ion-col size="12" class="ion-padding-vertical">
+                <p class="tilte ion-text-center"><b>Nuovo Ticket</b></p>
+            </ion-col>
+            <ion-col size="12">
+                <form [formGroup]="createNewTicket" (ngSubmit)="sendCreateTicketData()">
+                    <ion-row class="ion-padding-vertical">
+                        <ion-col class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=4 size-lg=4 size-xl=4>
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Titolo</b></ion-label>
+                                <ion-input formControlName="title" class="border-gradient border-gradient-red"
+                                    type="text" required></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=12 size-sm=12 size-md=4 size-lg=4 size-Xl=4>
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Descrizione</b></ion-label>
+                                <ion-input formControlName="description" class="border-gradient border-gradient-red"
+                                    type="textarea"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=12 size-sm=12 size-md=4 size-lg=4 size-Xl=4>
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Data Lavorazione</b></ion-label>
+                                <ion-input placeholder="Select Date" formControlName="ticket_date"
+                                    class="border-gradient border-gradient-red" type="date"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-vertical">
+                        <ion-col class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=6 size-lg=6 size-xl=6>
+                            <ion-item lines="none">
+                                <ion-label><b>Cliente</b></ion-label>
+                                <ion-select (ionChange)="checkCustomerDisabled($event.target.value)"
+                                    formControlName="customer_id" interface="action-sheet"
+                                    value="{{ specificTech[0]?._id}}" placeholder="{{ specificTech[0]?.company_name}}"
+                                    required>
+                                    <ion-select-option *ngFor="let customer of allCustomers" value="{{customer?._id }}">
+                                        {{customer?.company_name}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-item *ngIf="disableTech" lines="none">
+                                <div class="blockCustomerToShow">
+                                    <ion-icon name="alert-circle-outline"></ion-icon>
+                                    <p class="alertBlock"><b>Cliente con blocco amministrativo</b></p>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=12 size-sm=12 size-md=6 size-lg=6 size-Xl=6>
+                            <ion-item lines="none">
+                                <ion-label class="labelOperatività"><b>Uscita On Site</b></ion-label>
+                                <ion-checkbox (ionChange)="changeCheck()" color="primary" checked slot="end"
+                                    [checked]="sedeCheck"></ion-checkbox>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col   >
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Referente</b></ion-label>
+                                <ion-input formControlName="ticket_reference_name"
+                                    class="border-gradient border-gradient-red" type="textarea"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col  >
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Numero Referente</b></ion-label>
+                                <ion-input formControlName="ticket_reference_number"
+                                    class="border-gradient border-gradient-red" type="textarea"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col *ngIf="sedeCheck" size-xs=12 size-sm=12 size-md=4 size-lg=4 size-Xl=4>
+                            <ion-item lines="none">
+                                <ion-label position="stacked"><b>Località Referente</b></ion-label>
+                                <ion-input formControlName="ticket_reference_location"
+                                    class="border-gradient border-gradient-red" type="textarea"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col class="ion-padding-vertical" size=12>
+                            <ion-item lines="none">
+                                <ion-label><b>Tecnico Incaricato</b></ion-label>
+                                <ion-select [disabled]="disableTech" formControlName="operator_id"
+                                    interface="action-sheet">
+                                    <ion-select-option *ngFor="let tech of alltechs" value="{{tech?._id}}">
+                                        {{tech?.username}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row  class="ion-padding-vertical border-gradient border-gradient-red">
+                        <ion-col size=12 >
+                            <ion-item lines="none">
+                                <div class="temp ">
+                                    <ion-label class="labelOperatività"><b>Tempistica</b></ion-label>
+                                    
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=6 size-sm=6 size-md=6 size-lg=4 size-Xl=4>
+                            <ion-item lines="none">
+                                <ion-label class="labelOperatività"><b>Start</b></ion-label>
+                                <ion-input displayFormat="DD/MM/YYYY" name="recordHour" type="datetime-local"
+                                [(ngModel)]="start" [ngModelOptions]="{standalone:true}"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=6 size-sm=6 size-md=6 size-lg=4 size-Xl=4>
+                            <ion-item lines="none">
+                                <ion-label class="labelOperatività"><b>End</b></ion-label>
+                                <ion-input displayFormat="DD/MM/YYYY" name="recordHour" type="datetime-local"
+                                [(ngModel)]="end" [ngModelOptions]="{standalone:true}"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col style="display: flex;" class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=12 size-lg=4 size-Xl=4>
+                            <ion-item style="width: 100%;" lines="none">
+                                <ion-label><b>In Collaborazione</b></ion-label>
+                                <ion-select interface="action-sheet" [(ngModel)]="collabTech"
+                                [ngModelOptions]="{standalone:true}" required>
+                                <ion-select-option *ngFor="let tech of alltechs" value="{{tech.username}}">
+                                    {{tech.username}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                            <ion-button color="dark" *ngIf="start && end" (click)="addTemps()" ><i class="fa fa-plus" aria-hidden="true"></i></ion-button>
+                        </ion-col>
+                        <ion-col *ngIf="this.ticket_times" size-xs=12 size-sm=12 size-md=12 size-lg=12 size-Xl=12>
+                            <ion-item lines="none" class="collabTech"
+                                *ngFor="let time of this.ticket_times; let i = index">
+                                <div class="collabTech  border-gradient border-gradient-red">
+                                    <div class="collabTechTemp ion-padding-bottom">
+                                        <div class="w-fit" *ngIf="this.ticket_times">
+                                            <div>
+                                                <span>Start {{time[0] | date:'dd/MM/yyyy HH:mm'}}</span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="this.ticket_times">
+                                            <div>
+                                                <span>{{time[1] | date:'dd/MM/yyyy HH:mm'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class=" ion-padding-vertical">
+                                            <p>Collaboratore : <b>{{time[2]}}</b></p>
+                                        </div>
+                                        <ion-icon (click)="removeTemp(i)" name="close-outline"></ion-icon>
+                                    </div>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="ion-padding-bottom">
+                        <ion-col class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=6 size-lg=6 size-xl=6>
+                            <ion-item lines="none">
+                                <ion-label><b>Categoria</b></ion-label>
+                                <ion-select formControlName="category" interface="action-sheet" required>
+                                    <ion-select-option *ngFor="let category of categoriesData"
+                                        value="{{category?._id}}">
+                                        {{category?.name}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=6 size-lg=6 size-Xl=6>
+                            <ion-item lines="none">
+                                <ion-label><b>Urgenza</b></ion-label>
+                                <ion-select formControlName="priority" interface="action-sheet" required>
+                                    <ion-select-option value="low">Bassa</ion-select-option>
+                                    <ion-select-option value="medium">Medio</ion-select-option>
+                                    <ion-select-option value="high">Alta</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col class="ion-padding-bottom" size-xs=12 size-sm=12 size-md=6 size-lg=6 size-Xl=6>
+                            <ion-item lines="none">
+                                <ion-label>Tipologia Intervento</ion-label>
+                                <ion-select formControlName="ticket_mode" interface="action-sheet">
+                                    <ion-select-option value="Attività Laboratorio">Attività Laboratorio
+                                    </ion-select-option>
+                                    <ion-select-option value="Attività di Assistenza">Attività di Assistenza
+                                    </ion-select-option>
+                                    <ion-select-option value="Contatto Telefonico">Contatto Telefonico
+                                    </ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size-xs=12 size-sm=12 size-md=6 size-lg=6 size-Xl=6>
+                            <ion-item lines="none">
+                                <ion-label><b>Status</b></ion-label>
+                                <ion-select formControlName="status" interface="action-sheet" required>
+                                    <ion-select-option *ngFor="let status of allStatuses?.statuses" value="{{status}}">
+                                        {{status}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size-xs=12 size-sm=12 size-md=12 size-lg=12 size-Xl=12>
+                            <ion-item lines="none">
+                                <div class="contract ion-padding-bottom">
+                                    <ion-item lines="none">
+                                        <label for="uploadPhoto" class="labelOperatività uploadImageLabel">
+                                            <ion-icon name="cloud-upload-outline"></ion-icon> Carica Immagini
+                                        </label>
+                                        <input id="uploadPhoto" (change)="imagesPreview($event)" type="file"
+                                            formControlName="images" multiple />
+                                    </ion-item>
+                                </div>
+                            </ion-item>
+                            <ion-item lines="none">
+                                <div class="imagesPreviews ion-margin-bottom">
+                                    <div *ngFor="let img of imgURL; let i = index" class="image">
+                                        <img [src]="img" height="80" width="80">
+                                        <ion-icon (click)="removeImageToArray(i)" name="close-circle-outline">
+                                        </ion-icon>
+                                    </div>
+                                </div>
+                            </ion-item>
+                            <!-- <ion-item lines="none">
+                            <div class="progress ion-margin-bottom">
+                                <p *ngIf="progress != undefined">{{progress+'%'}}</p>
+                                <ion-progress-bar class="ion-padding-horizontal" [value]="progress"></ion-progress-bar>
+                            </div>
+                        </ion-item> -->
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-item lines="none">
+                                <div class="buttonSubmit">
+                                    <button [disabled]="!createNewTicket.valid" type="submit">Aggiungi</button>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <app-tabs></app-tabs>
+</ion-footer>

@@ -1,0 +1,290 @@
+ion-content {
+    --background: white;
+    ion-slides {
+        height: 150px;
+        width: 100%;
+
+    }
+    ion-slide {
+        --width: 100%;
+        .ticket {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 10px;
+            p {
+                width: 100%;
+            }
+            .title,.data {
+                font-size: small;
+                margin: 5px;
+            }
+            .title {
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            .title {
+                font-size: medium;
+            }
+            .data {
+                margin-left: 0;
+            }
+            .title {
+                font-size: small !important;
+                margin-left: 0px;
+            }
+
+        }
+        .categoria {
+            text-transform: lowercase;
+            font-weight: 600;
+            font-size: small;
+        }
+
+    }
+    .turn {
+        font-size:15px;
+        font-weight: 500;
+
+    }
+    .myTicketTitle {
+        font-weight: 600;
+    }
+    .allTickets {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        span {
+            font-size: small;
+            font-weight: 600;
+        }
+        button {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            background: black;
+            color: white;
+            padding:10px 15px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.border-gradient {
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+}
+
+.border-gradient-black-bottom {
+    border-image-source: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,58,45,0.804359243697479) 73%);
+}
+
+
+
+ion-list {
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+    }
+    .categoriaList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+}
+
+
+
+.footerSlider {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: auto;
+}
+ion-slide:focus  {
+    outline:none;
+}
+
+.ticketInfo {
+    display: flex;
+    // align-items: center;
+    flex-direction: column;
+    max-width: 70%;
+}
+.dataList {
+    margin-left: auto;
+}
+.ticketStatus {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: small !important;
+}
+.ticketNote {
+    font-size: small;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+.operatorTicket {
+    font-weight: bold;
+}
+.priorityShow {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .letterPriority{
+        margin-right:10px;
+        padding-top: 5px;
+    }
+}
+.priorityDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.letterPriorityUp {
+    margin-right:10px;
+    font-size: small;
+}
+
+.categoryTicketup {
+    display: flex;
+    margin-top: auto;
+    width: 100%;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+.overlayBlocked {
+    min-height: 100% !important;
+    z-index: 9999;
+    position: absolute;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.755);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    i {
+        height: 50px;
+        width: 50px;
+    }
+}
+.noteUp {
+    font-size: small;
+}
+
+.reminderIconDiv {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    p {
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    font-size: small;
+}
+
+.ticketNumber {
+    font-size: x-small;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.tickeIn{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.headerTicketUp{
+    min-width: 100%;
+}
+.myTicket {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    input {
+        border: none;
+    }
+    input:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.itemInput {
+    width: 100%;
+    .inputDiv {
+        width: 100%;
+        .searchInput, .searchNotAssignedInput {
+            width: 100%;
+            border: none;
+            background: white;
+            color: black;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            font-family: FontAwesome;
+        }
+        .searchInput:focus {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: white;
+            color: black;
+        }
+    }
+}
+.spinner {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    img {
+        width: 20%;
+    }
+}
+.customerTitle {
+    font-weight: bold;
+    font-size: medium !important;
+    padding-bottom: 5px !important;
+}
+
+.availableCompany{
+    font-size: small;
+}
+.referenceFont {
+    font-size: small !important;
+}
+.companyNameList {
+    font-size: small !important;
+    font-weight: bold;
+}

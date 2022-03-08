@@ -1,0 +1,64 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+ion-header {
+    --background:transparent;
+    ion-toolbar {
+        --background:transparent;
+        --border-color: transparent;
+        height: 8rem;
+        .logo {
+            width: 100%;
+            height: 8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+
+
+ion-content {
+    width: 100%;
+    --background:white;
+    height: 100%;
+    ion-grid {
+        width: 100%;
+        height: 100%;
+        .login {
+            width: 100%;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            ion-item {
+                --background:transparent;
+                width: 100%;
+                ion-label {
+                    font-weight: 600;
+                    font-size: large;
+                    letter-spacing: 1px;
+                }
+                ion-input {
+                    // border-bottom: 1px solid #FF3A2D;
+                    width: 100%;
+                }
+            }
+            .submit {
+                width: 100%;
+                    button  {
+                    background: black;
+                    color: white;
+                    border: 3px solid black;
+                    width: 100%;
+                    padding: 10px 10px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+}

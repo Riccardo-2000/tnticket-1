@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-sm navCustom">
+  <a class="navbar-brand">Bentornato,    {{(username$ | async)}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExample03">
+    <ul class="navbar-nav ml-auto">
+      <li (click)="logout()" class="nav-item">
+        <a class="nav-link pointerC">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HeroS -->
+
+<div class="container-fluid p-0">
+  <div class="row justify-content-center align-items-center mx-auto rowHero">
+    <div class="col-12 col-md-12 text-center">
+      <div class="d-flex align-items-center flex-column">
+        <img src="https://www.tnsolutions.it/wp-content/themes/tnsolutions_sad/img/tn-logo.jpg" alt="" srcset="">
+        <span class="text-light pt-3 "><b class="cBoard">Customer Board</b></span>
+        <span class="text-light pt-3 ">Stai visualizzando la versione BETA della nostra area clienti.<br /> Per qualsiasi problematica &egrave; possibile scrivere via mail a sviluppo@tnsolutions.it o telefonare allo 029517559</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Contract Data -->
+
+<div class="container">
+  <div class="row justify-content-center align-items-center mx-auto traslateYC">
+    <div class="col-12 col-md-4">
+
+      <hero-card [data]="(total_minutes)" [max]="(contract_hours$ | async)"  [titleCard]="'Ore Contratto'"  ></hero-card>
+
+    </div>
+    <div class="col-12 col-md-4">
+
+      <hero-card [data]="(contract_start$ | async) "  [titleCard]="'Rinnovo Contratto'"></hero-card>
+
+    </div>
+    <div class="col-12 col-md-4">
+
+      <hero-card [data]="(ticketsOn)" [titleCard]="'Ticket Attivi'" ></hero-card>
+
+    </div>
+  </div>
+</div>
+
+<!-- alert hours quota -->
+<div *ngIf="hours_alert" class="container">
+  <p>Attenzione!<br /> &Egrave; stato superato il numero di ore a contratto, tutte le ore eccedenti tale soglia saranno fatturate come da contratto.</p>
+</div>
+<div class="container" *ngIf="display_old">
+  <u (click)="old_tickets()">Visualizza attivit&agrave; contratto precedente</u>
+</div>
+<div class="container" *ngIf="display_current">
+  <u (click)="current_tickets()">Visualizza attivit&agrave; contratto corrente</u>
+</div>
+<!-- Activites -->
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 col-md-12">
+
+      <div class="navActivities d-flex align-items-center pl-0 flex-column flex-md-row p-2">
+          <span (click)="navigationComponent('tickets')" class="nav-link pointerC">I Tuoi Ticket</span>
+          <span (click)="navigationComponent('dati')" class="nav-link my-2 my-md-0 pointerC">Dati Di Accesso</span>
+          <!-- <span (click)="navigationComponent('info')" class="nav-link">Info</span> -->
+          <div *ngIf="ticketsTable" class="filterTickets  ml-md-auto">
+
+            <div class="selectDiv d-flex align-items-center justify-content-between flex-column flex-md-row">
+              <div class="label w-md-50">
+                <span class="pr-3 fontsmaller-3 ">Filtra Ticket : </span>
+              </div>
+
+              <div class="w-md-50">
+                <select (change)="filterTickets(this.selectValue.value)" class="form-control" aria-label="Default select example" #selectValue>
+                  <option>Attivi</option>
+                  <option value="Risolto">Risolti</option>
+                  <option value="All" selected>Tutti</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="(tickets$ | async) as tickets; else loader" class="col-12 col-md-12">
+
+      <app-my-tickets *ngIf="ticketsTable" [tickets]="tickets" (ticket)="changeViewCompponent($event)"></app-my-tickets>
+      <app-customer-data *ngIf="dataCustomer" ></app-customer-data>
+      <app-ticket-detail *ngIf="ticketToShow" [ticket]="ticketToShow" ></app-ticket-detail>
+
+    </div>
+  </div>
+</div>
+
+<ng-template  #loader>
+  <div class="text-center w-100 mt-3 d-flex flex-column align-items-center justify-content-center">
+    <img src="../../../assets/loader.gif" alt="" class="img-fluid w-50 loader">
+  </div>
+</ng-template>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">tnticketapp</string>
+    <string name="title_activity_main">tnticketapp</string>
+    <string name="package_name">io.sadev.tnticketapp</string>
+    <string name="custom_url_scheme">io.sadev.tnticketapp</string>
+</resources>

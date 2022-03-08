@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center mx-0 vh-100">
+    <div class="col-12 col-md-6">
+      <div class="neuroShadowCard py-3 px-4">
+        <form [formGroup]="logIn" (ngSubmit)="logInRqe()">
+          <div class="form-row py-2 px-3">
+            <div class="col-12">
+              <p class="text-center logTitle">LOG IN</p>
+            </div>
+            <div class="col-12">
+              <label for=""><b>E-mail</b></label>
+              <input formControlName="email" type="email" placeholder="Es : prova@prova.com" class="form-control rounded-0" required [ngClass]="this.logIn.controls.email.valid ? 'validCustom' : 'invalidCustom'">
+               <div *ngIf="this.logIn.controls.email.invalid && (this.logIn.controls.email.dirty || this.logIn.controls.email.touched)"
+              class="alert alert-danger">
+              Formato E-mail non valido.
+              <div *ngIf="this.logIn.controls.email.errors.required">
+              L'Email è richiesta.
+              </div>
+            </div>
+          </div>
+          <div class="col-12 my-3">
+            <label for=""><b>Password</b></label>
+            <input formControlName="password" type="password" placeholder="Password" class="form-control rounded-0" required [ngClass]="this.logIn.controls.password.valid ? 'validCustom' : 'invalidCustom'">
+            <div *ngIf="this.logIn.controls.password.invalid && (this.logIn.controls.password.dirty || this.logIn.controls.password.touched)"
+            class="alert alert-danger">
+            Formato Password non valido.
+            <div *ngIf="this.logIn.controls.password.errors.required">
+            La Password è Richiesta.
+            </div>
+          </div>
+          </div>
+          <div class="col-12">
+            <button [disabled]="!this.logIn.valid" type="submit" class="btn buttonCustom w-100">LOG IN</button>
+          </div>
+          <div *ngIf="errorMessage != null" class="col-12 alert alert-danger my-3 py-2 px-3">
+            {{errorMessage}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,39 @@
+
+.links {
+  display: flex;
+  flex-direction: column;
+
+  .tickets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 4px solid rgb(44, 44, 44);
+  }
+  .ticketsAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .listItem {
+    font-size: medium;
+    font-weight: 700;
+  }
+  .listItemTitle {
+    font-weight: 700;
+  }
+  .borderCustom {
+    border: 3px solid rgba(255, 0, 0, 0.562);
+  }
+}
+
+
+
+
+
+@media screen and (max-width: 1050px) {
+  .listItem {
+    display: none;
+  }
+}

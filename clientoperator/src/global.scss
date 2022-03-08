@@ -1,0 +1,141 @@
+/*
+* App Global CSS
+* ----------------------------------------------------------------------------
+* Put style rules here that you want to apply globally. These styles are for
+* the entire app and not just one component. Additionally, this file can be
+* used as an entry point to import other CSS/Sass files to be included in the
+* output CSS.
+* For more information on global stylesheets, visit the documentation:
+* https://ionicframework.com/docs/layout/global-stylesheets
+*/
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+// Style
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.border-gradient {
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+}
+
+.border-gradient-red {
+    // border-image-source: linear-gradient(90deg, rgba(255,58,45,0.804359243697479) 0%, rgba(255,255,255,0) 90%);
+    border-color: rgba(255,58,45,0.804359243697479)!important;
+}
+
+.border-gradient-left {
+    border-left: 2px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+}
+
+.border-gradient-black {
+    border-image-source: linear-gradient(180deg, rgba(255,58,45,0.804359243697479) 0%, rgba(255,255,255,0) 73%);
+}
+
+.status-high {
+    height: 10px;
+    width: 10px;
+    background: rgba(255,58,45,1);
+    border-radius: 50%;
+    margin-right:10px;
+
+}
+
+.status-medium {
+    height: 10px;
+    width: 10px;
+    background: rgb(177, 174, 0);
+    border-radius: 50%;
+    margin-right:10px;
+}
+.status-low {
+    height: 10px;
+    width: 10px;
+    background:green;
+    border-radius: 50%;
+    margin-right:10px;
+}
+.divCreated {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+ion-tabs {
+    height: 50px;
+}
+ion-footer {
+    height: 50px;
+    --background:transparent;
+
+}
+
+
+.my-custom-modal-css .modal-wrapper {
+    --background:white;
+    height: 90%;
+    top: 10%;
+    border-radius: 10px 10px 0px 0px;
+    position: absolute;
+    display: block;
+}
+
+.loader {
+    --background: #222;
+    --spinner-color: #fff;
+
+    color: #fff;
+  }
+.ticketSliderModal {
+    --background:transparent !important;
+    // border-radius: 10px 10px 0px 0px;
+    // position: absolute;
+    // display: block;
+}
+.loaderDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    img {
+        width: 50px;
+    }
+}
+
+
+ion-button { --background: #293133; }
+
+.v-center{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.d-flex{
+    display: flex;
+}

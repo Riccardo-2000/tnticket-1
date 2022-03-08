@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row justify-content-center flex-column align-items-center mx-auto vh-100 rowC">
+    <div class="col-12 col-md-5">
+      <div class="text-center my-5">
+        <img src="https://www.tnsolutions.it/wp-content/themes/tnsolutions_sad/img/tn-logo.jpg" alt="" class="img-fluid">
+        <p class="fontCustomer">Customers</p>
+      </div>
+      <form [formGroup]="loginForm" class="formCustom" (ngSubmit)="login()">
+        <div class="form-group">
+          <input type="email" class="form-control"  formControlName="username" id="email" aria-describedby="email" placeholder=" ">
+          <label for="email">Username</label>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" formControlName="password" id="password" placeholder=" ">
+          <label for="password">Password</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <div *ngIf="showError" class="alert alert-danger mt-2">
+          <span class="text-danger">Autenticazione Fallita</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

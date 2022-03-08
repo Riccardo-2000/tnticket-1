@@ -1,0 +1,45 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+ion-header{
+    --border: none;
+    --background: white;
+
+    ion-toolbar {
+        height: 100%;
+        margin: 0;
+        --background:  white;
+        --border-color:  white;
+        .avatar {
+            ion-item {
+                --background:transparent;
+                padding-top: 15px;
+                padding-bottom: 15px;
+                ion-label {
+                    color: #fff;
+                    font-weight: 700;
+                    font-size: larger;
+                    .name {
+                        font-size: large;
+                        font-weight: bolder;
+                        color: #000;
+                    }
+                }
+            }
+        }
+        .hello {
+            font-size: small;
+        }
+    }
+    .back {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        
+        ion-icon {
+            width: 2rem;
+        }
+    }
+}
+

@@ -1,0 +1,18 @@
+<div class="row justify-content-center align-items-center my-4" @fadeSlideInOut>
+  <div class="col-12 col-md-12 ">
+    <div class="imageProfile mx-auto d-flex justify-content-center align-items-center flex-column w-100">
+      <img src="../../../assets/userPlaceholder.png" class="img-fluid" alt="" srcset="">
+      <div class="formModify d-flex align-items-center flex-column">
+        <form [formGroup]="modifyAccessData" (ngSubmit)="editAccessData()"  >
+          <!--<label for="username" class="mr-auto mt-3">Username</label>
+          <input type="text" id="username"  formControlName="username" class="form-control" >-->
+          <label for="password" class="mr-auto mt-3">Password</label>
+          <input type="text" id="password" formControlName="password" class="form-control" >
+
+          <button type="submit" [disabled]="modifyAccessData.invalid" class="btn btnCustom w-100 mt-3">Modifica</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

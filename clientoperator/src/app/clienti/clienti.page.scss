@@ -1,0 +1,82 @@
+
+
+  ion-list {
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+    }
+    .categoriaList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        ion-icon {
+            padding-right: 10px;
+        }
+    }
+
+    .editButton {
+        background: black;
+        color: white;
+        border-radius: 5px;
+        padding:5px 10px;
+        margin-right: 10px;
+    }
+
+  }
+  ion-fab-button {
+      margin-left: 10px;
+      margin-bottom: 65px;
+  }
+  ion-fab-button::part(native) {
+    --background: #2931339d;
+
+  }
+
+  ion-fab-button::part(native):hover {
+    --background: #2931339d;
+}
+.dataList {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    ion-icon {
+        margin-right: 10px;
+        color: black;
+        width: 25px;
+    }
+}
+.customerCategory {
+    display: flex;
+    align-items: flex-end;
+    margin-top: auto;
+}
+.searchInputCustom {
+    width: 100%;
+    border: none;
+    border-bottom:2px solid black;
+}
+.imagesIcons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    span {
+        padding-right: 5px;
+        font-size: small;
+    }
+}
+

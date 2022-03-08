@@ -1,0 +1,309 @@
+ion-content {
+    .ticket {
+        width: 100%;
+        .ticketTitle {
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: larger;
+        }
+
+    }
+    .statusTitle {
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: medium;
+    }
+
+    .ticketDescription {
+        .description {
+            margin-top: 5px;
+        }
+    }
+    .dataTicket {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        .data {
+            font-weight: 400;
+            font-size: small;
+        }
+        .category {
+            margin-top: 5px;
+            font-size: small;
+            font-weight: 600;
+            text-transform: lowercase;
+        }
+    }
+    .status {
+        margin-top: 5px;
+    }
+    .requestTicket {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        button {
+            background: transparent;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border-radius: 5px;
+        }
+    }
+    .ticketStatus {
+        width: 100%;
+        //display: flex;
+        // align-items: center;
+        //flex-direction: row;
+        // justify-content: space-between;
+        ion-item {
+            width: 100%;
+        }
+        ion-input {
+            width: 50%;
+        }
+    }
+}
+
+.ticketBox {
+    height: 100px;
+}
+.ticketBoxRemind {
+    display: flex;
+    justify-content: space-between;
+    // height: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.submitStatus {
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    }
+
+.border-gradient {
+    border-bottom: 1px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+  }
+
+  .border-gradient-black-bottom {
+    // border-image-source: linear-gradient(90deg, rgba(255,58,45,0.804359243697479) 0%, rgba(255,255,255,) 73%);
+    border-color: #743d3d;
+  }
+
+  
+
+
+  .tempistica {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  .recordsStatus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .modifyTicketButton {
+      width: 100%;
+      background: black;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: white;
+  }
+  .modifyTicketButton:focus {
+    width: 100%;
+    background: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+}
+.newRecord {
+    display: flex ;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.interventoData {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete {
+    background:rgba(255,58,45,1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    ion-icon {
+        padding-right:10px ;
+    }
+}
+
+.modifyButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    ion-icon {
+        padding-right:8px ;
+    }
+}
+
+ion-input {
+    --padding-end:0px;
+}
+
+.statusValueForm {
+    ion-item {
+        --padding-start:0px;
+        width: 100%;
+    }
+    ion-select {
+        --padding-start: 0px;
+        min-width: 80%;
+        --placeholder-opacity:0.8;
+    }
+    button{
+        margin-left: 5px;
+    }
+}
+
+.dateTemp {
+    text-align: center;
+}
+.hourTemp{
+    --placeholder-opacity:0.8;
+}
+.addButtons {
+    background :black;
+    color:white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.sedi {
+    min-width:100%;
+    padding-left: 0;
+}
+
+ion-checkbox {
+    --background-checked:rgba(255,58,45,1);
+    --border-color-checked:black;
+    --border-color:rgba(255,58,45,1);
+}
+
+#buttonCall {
+    --background:#25d366;
+    --background-activated:#25d366;
+}
+#buttonNavigate {
+    margin-top: 10px !important;
+    --background:black;
+    --background-activated:black;
+}
+.location {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    a {
+        color: black;
+    }
+}
+.delegaItem {
+    --padding-start:0px;
+}
+.locationsAlert {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    p {
+        font-size: small;
+        font-weight: bold;
+    }
+}
+.ticketNumber {
+    font-size: small;
+    font-weight: bold;
+}
+.collabRemove {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.titleTicket {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.ticketDataLav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    ion-input {
+        width: 50%;
+    }
+    span {
+        width: 50%;
+    }
+}
+
+
+.loadSign{
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+.btnSign{
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+
+.blockInfo{
+    background: #f0d7fa8c;
+    padding: 15px;
+    margin-inline: 22px;
+    height: 100%;
+}
+
+@media (max-width: 575px){
+    .blockInfo{
+        padding: 5px;
+        margin-inline: 2px;
+    }
+}
+
+.blockdivider{
+    width: 50%;
+    margin-inline: auto;
+    border-width: 3px;
+    height: 0;
+    font-weight: bold;
+    padding: 0;
+    border-color: #743d3d;
+    margin-bottom: 30px;
+    display: none;
+  }
+
+  

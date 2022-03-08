@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <div class="avatar">
+            <ion-item lines="none">
+                <ion-avatar (click)="goToUserDataPage()" slot="start">
+                    <img *ngIf="userData?.user_type == 1" src="https://www.tnsolutions.it/images/operatore.png">
+                    <img  *ngIf="userData?.user_type != 1" src="https://www.tnsolutions.it/images/tecnico.png">
+                </ion-avatar>
+                <ion-label>
+                    <p class="hello">{{date}}
+                        <span  *ngIf="backButtonController" (click)="back()" class="ion-float-right back">
+                            <ion-icon  name="arrow-back-outline"></ion-icon>
+                        Back</span>
+                        <span  *ngIf="!backButtonController" (click)="logOut()" class="ion-float-right back">
+                            <ion-icon  name="log-out-outline"></ion-icon>
+                        Log Out</span>
+                    </p>
+                        <p class="name">{{userData?.username}}</p>
+                    </ion-label>
+                </ion-item>
+            </div>
+        </ion-toolbar>
+    </ion-header>

@@ -1,0 +1,142 @@
+
+
+
+ion-content {
+    .title {
+        font-size: large;
+        letter-spacing: 2px;
+        font-weight: bold;
+        width: 100%;
+    }
+    .buttonSubmit {
+        width: 100%;
+        button {
+            width: 100%;
+            background: black;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color : white;
+        }
+    }
+}
+
+
+
+
+ion-checkbox {
+    --background-checked:rgba(255,58,45,1);
+    --border-color-checked:black;
+    --border-color:rgba(255,58,45,1);
+}
+.blockCustomerToShow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    p {
+        font-size: small;
+    }
+}
+
+.temp {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.collabTech {
+    min-width: 100% !important;
+}
+.collabRemove {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.collabTechTemp {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.progress {
+    width: 100%;
+}
+.imagesPreviews {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .image {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-left:8px;
+        padding-right:8px;
+        ion-icon {
+            padding-top: 10px;
+            font-size:large;
+        }
+    }
+}
+
+#uploadPhoto {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+.uploadImageLabel {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    ion-icon {
+        padding-right: 10px;
+    }
+}
+.divOk {
+    position: absolute;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    .ok{
+        width: 80px;
+        height: 80px;
+        animation:okGif 1s forwards ease-in;
+        z-index: 9999;
+    }
+}
+
+@keyframes okGif {
+    0%{opacity: 0; transform: scale(1)}
+    50%{opacity: 1; transform: scale(1.2)}
+    100%{opacity: 0; transform: scale(1.0)}
+}
+
+
+
+
+.blockInfo{
+    background: #f0d7fa8c;
+    padding: 15px;
+    margin-inline: 22px;
+    height: 100%;
+}
+
+.blockdivider{
+    width: 50%;
+    margin-inline: auto;
+    border-width: 3px;
+    height: 0;
+    font-weight: bold;
+    padding: 0;
+    border-color: #743d3d;
+    margin-bottom: 30px;
+    display: none;
+  }
+
+  

@@ -1,0 +1,119 @@
+<div class="row mx-2">
+  <div class="col-12 col-md-12 mt-2">
+    <div class="neuroShadowCard">
+      <p class="tableTitleTech px-2 py-2 text-center">Elenco Tecnici</p>
+
+      <form [formGroup]="dateRange" class="row container px-3  mx-auto pt-5" (ngSubmit)="getRangeDate(dateRange.value)">
+        <div class="form-group col">
+          <label>Start</label>
+          <input type="date" class="form-control" formControlName="start">
+        </div>
+        <div class="form-group col">
+          <label>End</label>
+          <input type="date" class="form-control" formControlName="end">
+        </div>
+        <div class="form-group col-2 position-relative">
+          <input type="submit" class="form-control position-absolute fixed-bottom">
+        </div>
+      </form>
+      <div class="text-center" *ngIf="techHoursWorked">
+        Ore totali tecnici {{techHoursWorked }}
+      </div>
+      <div class="my-3 text-center">
+
+        <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin "></i>
+
+      </div>
+
+      <table class="table  table-striped">
+        <thead>
+          <tr>
+            <th scope="col action" class=" dCustom">Azioni</th>
+            <th scope="col title">Nome</th>
+            <th scope="col customer" class="operator dCustom">Email</th>
+            <th scope="col customer" class="customer dCustom">Disponibile</th>
+            <th scope="col customer" class="customer dCustom">Ore lavorate</th>
+            <th scope="col customer" class="customer">Ticket Ass.</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="(allTechs$ | async ) as techs">
+          <tr *ngFor="let tech of techs">
+            <th scope="row" class="dCustom">
+              <i (click)="deleteTech(tech?._id)" class="fas fa-times pr-3 iconsTable"></i>
+              <i (click)="editTech(tech?._id)" class="fas fa-eye px-3 iconsTable"></i>
+              <i [routerLink]="['/techDetail', tech?._id,dateRange.value]" class="fas fa-clipboard-list px-3 iconsTable"></i>
+            </th>
+            <th scope="row">{{tech?.username}}</th>
+            <th scope="row" class="operator dCustom">{{tech?.email}}</th>
+            <td *ngIf="tech?.status_holiday" class="customer dCustom">No</td>
+            <td *ngIf="!tech?.status_holiday" class="customer dCustom">Si</td>
+            <td>{{tech?.hoursWorked}}</td>
+            <td class="data">{{tech?.lastMontTickets}}</td>
+            <!-- <td *ngIf="tech?.tickets.length <= 0 " class="data">{{0}}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 mt-3">
+    <form [formGroup]="newTech" (ngSubmit)="sendNewTech()">
+      <div class="neuroShadowCard py-3 px-4">
+        <p class="tableTitleTech px-2 py-2 text-center">Crea Nuovo</p>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Username</label>
+            <input formControlName="username" type="text" class="form-control" id="validationCustom01"
+              placeholder="Username">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Email</label>
+            <input formControlName="email" type="text" class="form-control" id="validationCustom02" placeholder="email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="validationCustom02"
+              placeholder="Password">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="disabledSelect">Opeatività</label>
+            <select formControlName="status_holiday" id="disabledSelect" class="form-control">
+              <option [value]="true">Si</option>
+              <option [value]="false" selected>No</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Crea</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 col-md-6 mt-3">
+    <div class="neuroShadowCard py-3 px-4">
+      <p class="tableTitleTech px-2 py-2 text-center">Modifica</p>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom01">Username</label>
+          <input type="text" class="form-control" id="validationCustom01" placeholder="Username"
+            [(ngModel)]="newTechData.username">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom02">Email</label>
+          <input type="text" class="form-control" id="validationCustom02" placeholder="email"
+            [(ngModel)]="newTechData.email">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom02">Password</label>
+          <input type="password" class="form-control" id="validationCustom02" placeholder="Password"
+            [(ngModel)]="newTechData.password">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="disabledSelect">Opeatività</label>
+          <select id="disabledSelect" class="form-control" [(ngModel)]="newTechData.status_holiday">
+            <option [value]="false">Si</option>
+            <option [value]="true" selected>No</option>
+          </select>
+        </div>
+      </div>
+      <button (click)="sendNewTechData()" class="btn btn-primary w-100" type="submit">Modifica</button>
+    </div>
+  </div>
+</div>

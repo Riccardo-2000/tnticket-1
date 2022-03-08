@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<ion-content>
+    <ion-row>
+        <ion-col>
+            <ion-item lines="none">
+                <p class="title">Modifica Info profilo</p>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <form [formGroup]="sendNewDatProfile" (ngSubmit)="sendFormValue()">
+                <div class="userData">
+                    <ion-item lines="none" class="ion-padding-bottom">
+                        <ion-label position="stacked"><b>Username</b></ion-label>
+                        <ion-input [required]="true"  formControlName="username" type="text" class="border-gradient border-gradient-red" value="{{userData?.username}}"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none" class="ion-padding-bottom">
+                        <ion-label position="stacked"><b>New Password</b></ion-label>
+                        <ion-input [required]="true"  formControlName="password" type="password" class="border-gradient border-gradient-red"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none" class="ion-padding-bottom">
+                        <ion-label position="stacked"><b>Confirm new Password</b></ion-label>
+                        <ion-input [required]="true" formControlName="confirmNewPassword" type="password" class="border-gradient border-gradient-red"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none" class="ion-padding-bottom">
+                        <button class="buttonSubmit" type="submit">Aggiorna</button>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <p class="titleOperatività">Modifica il tuo stato lavorativo</p>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="labelOperatività"><b>In Ferie</b></ion-label>
+                        <ion-checkbox (ionChange)="changeCheck()" color="primary" checked slot="end" [checked]="controllerChecked"></ion-checkbox>
+                    </ion-item>
+                    <ion-item  *ngIf="controllerChecked" lines="none">
+                        <p class="ferie">Buone ferie da T&N Solutions !</p>
+                    </ion-item>
+                </div>
+            </form>
+        </ion-col>
+    </ion-row>
+</ion-content>
+<app-tabs></app-tabs>

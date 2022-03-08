@@ -1,0 +1,37 @@
+<ion-header lines="none">
+    <ion-toolbar lines="none" translucent>
+        <div class="logo">
+            <img src="../../assets/images/tn-logo.jpg" alt="logo">
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="login">
+                    <form [formGroup]="loginData" (ngSubmit)="sendLoginData()">
+                        <div class="username ion-margin-bottom ion-padding-bottom">
+                            <ion-item lines="none">
+                                <ion-label position="stacked">E-mail</ion-label>
+                                <ion-input formControlName="email" class="border-gradient border-gradient-red" type="text"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="password ion-margin-bottom">
+                            <ion-item lines="none">
+                                <ion-label position="stacked">Password</ion-label>
+                                <ion-input formControlName="password" class="border-gradient border-gradient-red" type="password"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="submit ion-margin-top">
+                            <ion-item lines="none">
+                                <button [disabled]="!loginData.valid" type="submit">LOG IN</button>
+                            </ion-item>
+                        </div>
+                    </form>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

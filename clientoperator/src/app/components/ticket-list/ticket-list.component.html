@@ -1,0 +1,204 @@
+<!--  <ion-grid class="ion-margin-vertical"> 
+    <ion-row class="ticketData">
+        <th></th>
+        <th>Azioni</th>
+        <th>Numero ticket</th>
+        <th>Nome azienda</th>
+        <th>Aperto da:</th>
+        <th >Problematica</th>
+        <th>Referente</th>
+        <th>Status</th>
+        <th>Tipo</th>
+        <th>Data</th>
+    </ion-row>
+    <ion-row class="ticketData " *ngFor="let ticket of tickets$" >
+        <ion-col style="display: table-cell;" size="auto" class="priorityShow bg-{{ticket.priority}}">
+            <div [hidden]="ticket?.reminder.length == 0" class="">
+                <b>
+                    <div class="">
+                        {{ticket?.reminder.length}}<ion-icon name="volume-high-outline"></ion-icon>
+                    </div>
+                </b>
+            </div>
+            <div [hidden]="ticket?.priority != 'high'" class="ion-text-center">
+                <ion-text color="light">
+
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                
+                </ion-text>
+            </div>
+        </ion-col>
+        <ion-col>
+            <div  style="display: flex; font-weight: bold;">
+                <button>
+                    <i (click)="cloneTicket(ticket._id)" class="fa fa-clone" aria-hidden="true"></i>
+                </button>
+            </div>
+        </ion-col>
+        <ion-col><b>#{{ticket?.ticket_number}}</b></ion-col>
+        <ion-col routerLink="/ticket/{{ticket?._id}}">{{ticket?.customer_id.company_name.toUpperCase()}}</ion-col>
+        <ion-col style="min-width: 200px;" routerLink="/ticket/{{ticket?._id}}"><b>{{ticket?.ticketOpening}}</b></ion-col>
+        <ion-col  routerLink="/ticket/{{ticket?._id}}">{{ticket?.title}}</ion-col>
+        <ion-col routerLink="/ticket/{{ticket?._id}}">{{ticket?.ticket_reference_name }}</ion-col>
+        <ion-col routerLink="/ticket/{{ticket?._id}}">{{ticket?.status}}</ion-col>
+        <ion-col [ngClass]="ticket?.ticket_mode=='Attività di Assistenza' ? 'assistenza' : ''" routerLink="/ticket/{{ticket?._id}}">   
+            {{ticket?.ticket_mode}}
+        </ion-col>
+        <ion-col routerLink="/ticket/{{ticket?._id}}"> 
+            <b>{{ticket?.createdAt | date:'d/MM/yyyy'}}</b>
+            <br>
+            <b>{{ticket?.createdAt | date:'HH:mm'}}</b>
+        </ion-col>
+
+    </ion-row>
+</ion-grid> -->
+<table class="ion-margin-vertical ion-hide-sm-down">
+    <tr class="ticketData">
+        <th></th>
+        <th>Azioni</th>
+        <th>Numero ticket</th>
+        <th>Nome azienda</th>
+        <th>Aperto da:</th>
+        <th>Problematica</th>
+        <th>Referente</th>
+        <th>Status</th>
+        <th>Tipo</th>
+        <th>Data</th>
+    </tr>
+    <tr class="ticketData " *ngFor="let ticket of tickets$">
+        <td style="display: table-cell;" size="12" class="priorityShow bg-{{ticket.priority}}">
+            <div [hidden]="ticket?.reminder.length == 0" class="">
+                <b>
+                    <div class="">
+                        {{ticket?.reminder.length}}<ion-icon name="volume-high-outline"></ion-icon>
+                    </div>
+                </b>
+            </div>
+            <div [hidden]="ticket?.priority != 'high'" class="ion-text-center">
+                <ion-text color="light">
+
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                </ion-text>
+            </div>
+        </td>
+        <td>
+            <div style="display: flex; font-weight: bold;">
+                <button>
+                    <i (click)="cloneTicket(ticket._id)" class="fa fa-clone" aria-hidden="true"></i>
+                </button>
+            </div>
+        </td>
+
+        <td><b>#{{ticket?.ticket_number}}</b></td>
+        <td routerLink="/ticket/{{ticket?._id}}">{{ticket?.customer_id.company_name.toUpperCase()}}</td>
+        <td style="min-width: 200px;" routerLink="/ticket/{{ticket?._id}}"><b>{{ticket?.ticketOpening}}</b></td>
+        <td routerLink="/ticket/{{ticket?._id}}">{{ticket?.title}}</td>
+        <td routerLink="/ticket/{{ticket?._id}}">{{ticket?.ticket_reference_name }}</td>
+        <td routerLink="/ticket/{{ticket?._id}}">{{ticket?.status}}</td>
+        <td [ngClass]="ticket?.ticket_mode=='Attività di Assistenza' ? 'assistenza' : ''"
+            routerLink="/ticket/{{ticket?._id}}">
+            {{ticket?.ticket_mode}}
+        </td>
+        <td routerLink="/ticket/{{ticket?._id}}">
+            <b>{{ticket?.createdAt | date:'d/MM/yyyy'}}</b>
+            <br>
+            <b>{{ticket?.createdAt | date:'HH:mm'}}</b>
+        </td>
+
+    </tr>
+</table>
+
+
+<ion-grid class=" ion-hide-sm-up">
+
+    <ion-row *ngFor="let ticket of tickets$" routerLink="/ticket/{{ticket?._id}}" class="ticket-row">
+
+        <ion-col style="display: table-cell;" size="1" class="priorityShow bg-{{ticket.priority}}">
+            <div class="v-center">
+
+                <div [hidden]="ticket?.reminder.length == 0" class="">
+                    <b>{{ticket?.reminder.length}}<ion-icon name="volume-high-outline"></ion-icon></b>
+                </div>
+                <div [hidden]="ticket?.priority != 'high'" class="ion-text-center ">
+                    <ion-text color="light">
+
+                        <i class="fa fa-exclamation-triangle " aria-hidden="true"></i>
+
+                    </ion-text>
+                </div>
+            </div>
+        </ion-col>
+        <ion-col class="ion-padding-horizontal ion-padding-vertical ticketInfo ion-float-left" size="11">
+            <!-- <div style="display: flex; font-weight: bold;">
+                        <button>
+                            <i (click)="cloneTicket(ticket._id)" class="fa fa-clone" aria-hidden="true"></i>
+                        </button>
+                    </div> -->
+            <div>
+
+                <div class=" d-flex ion-justify-content-between">
+                    <span>#{{ticket?.ticket_number}}</span>
+                    <span>{{ticket?.customer_id.company_name.toUpperCase()}}</span>
+                </div>
+                <!-- {{ticket?.ticketOpening}} -->
+                <p>{{ticket?.title}}</p>
+                <div class=" d-flex ion-justify-content-between">
+                    <span *ngIf="ticket.ticket_reference_name">{{ticket?.ticket_reference_name }}</span>
+                    <span>{{ticket?.status}}</span>
+                </div>
+
+                <p>{{ticket?.ticket_mode}}</p>
+
+                <div class=" d-flex ion-justify-content-between">
+                    <span>{{ticket?.createdAt | date:'HH:mm'}}</span>
+                    <span>{{ticket?.createdAt | date:'d/MM/yyyy'}}</span>
+                </div>
+
+            </div>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+
+<!-- <ion-list>
+    <ion-item *ngFor="let ticket of tickets$" routerLink="/ticket/{{ticket?._id}}" >
+        <div class="ticketList">
+            <div class="priorityShow">
+                <div class="status-{{ticket.priority}}"></div>
+                <span *ngIf="ticket?.priority.valueOf() == 'high' " class="letterPriority"><b>A</b></span>
+                <span *ngIf="ticket?.priority.valueOf() == 'medium' " class="letterPriority"><b>M</b></span>
+                <span *ngIf="ticket?.priority.valueOf() == 'low' " class="letterPriority"><b>B</b></span>
+            </div>
+            <div class="ticketInfo ion-float-left">
+                <p *ngIf="ticket?.customer_id.company_name"  class="ticketNote ">
+                    <span class="companyNameList">{{ticket?.customer_id.company_name.toUpperCase()}}
+                    </span>
+                </p>
+                <span class="categoriaList">
+                    {{ticket?.title}}
+                </span>
+                <p *ngIf="ticket?.description" class="ticketNote">{{ticket?.description}}</p>
+                <div [hidden]="ticket?.reminder.length == 0" class="reminderIconDiv">
+                    <ion-icon name="volume-high-outline"></ion-icon>
+                    <p  class="reminderIcon">{{ticket?.reminder.length}}</p>
+                </div>
+                <p *ngIf="ticket?.ticket_reference_name" class="ticketNote ">
+                    <span class="referenceFont"><b>{{ticket?.ticket_reference_name }}</b>
+                    </span>
+                </p>
+                <span class="ticketStatus">
+                    <b>{{ticket?.status}}</b>
+                </span>
+                <span class="operatorTicket">
+                    {{ticket?.operator_id?.username}}
+                </span>
+                <p *ngIf="ticket?.ticket_number" class="ticketNumber">
+                    <b># {{ticket?.ticket_number}}</b>
+                </p>
+            </div>
+            <span *ngIf="ticket?.createdAt" class="dataList">
+                <strong>{{ticket?.createdAt | date:'d/MM/yyyy H:m'}}</strong>
+            </span>
+        </div>
+    </ion-item>
+</ion-list> -->

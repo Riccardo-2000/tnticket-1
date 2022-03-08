@@ -1,0 +1,193 @@
+.modificaTicket {
+  font-size: large;
+  font-weight: bold;
+}
+
+.titleItems {
+  font-size: large;
+  font-weight: bold;
+}
+
+.borderCustom {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btnCustomModal {
+  background: rgb(255, 99, 132);
+  color: white;
+  font-weight: bold;
+}
+.paddingCustomCheck {
+  padding: 0;
+}
+.appendCustom {
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  color: red;
+  border-radius: 0px;
+}
+.searchCustom {
+  border: none;
+  border-bottom: 3px solid black;
+}
+.searchCustom:focus {
+  border: none;
+  border-bottom: 3px solid black;
+}
+.tempAdd {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  .btnCustom {
+    background:black;
+    color: white;
+    outline: none;
+    box-shadow: none;
+  }
+  .btnCustom:focus {
+    background:black;
+    color: white;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.imageToView {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  img {
+    width: 10rem;
+  }
+  .btnCustomDeleteImage {
+    background: black;
+    color: white;
+  }
+  .btnCustomDeleteImage:focus {
+    background: black;
+    color: white;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.btnUpdateTemp {
+  background: black;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+.btnUpdateTemp:focus {
+  background: black;
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+@media screen and (max-width: 400px) {
+
+  .operator {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+
+  .customer {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 580px) {
+  .dataInsert {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .data {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 880px) {
+  .priority {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 1000px) {
+  .iconsTable {
+    display: none;
+  }
+}
+
+/*toggle*/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  margin-bottom: -0.5rem;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 3.5px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

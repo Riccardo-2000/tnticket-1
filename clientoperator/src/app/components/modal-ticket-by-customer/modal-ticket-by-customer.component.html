@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="headerList ion-padding-horizontal">
+      <p class="titleList">Ticket per questo cliente</p>
+      <div class="close">
+        <ion-icon (click)="dismissModal()" name="close-outline"></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-list class="ion-margin-top">
+        <ion-item *ngFor=" let ticket of ticketsByCustomer"  routerLink="/ticket/{{ticket?._id}}" (click)="dismissModal()"  >
+          <div  class="ticketList">
+            <div class="priorityShow">
+              <div class="status-{{ticket.priority}}"></div>
+              <span *ngIf="ticket?.priority == 'high' " class="letterPriority"><b>A</b></span>
+              <span *ngIf="ticket?.priority == 'medium' " class="letterPriority"><b>M</b></span>
+              <span *ngIf="ticket?.priority == 'low' " class="letterPriority"><b>B</b></span>
+            </div>
+            <div class="ticketInfo ion-float-left">
+              <span class="categoriaList">
+
+                {{ticket?.title}}
+              </span>
+              <p *ngIf="ticket?.description" class="ticketNote">{{ticket?.description}}</p>
+              <p *ngIf="ticket?.customer_id" class="ticketNote">{{ticket?.customer_id.company_name}}</p>
+              <div [hidden]="ticket?.reminder.length == 0" class="reminderIconDiv">
+                <ion-icon name="volume-high-outline"></ion-icon>
+                <p  class="reminderIcon">{{ticket?.reminder.length}}</p>
+              </div>
+              <span class="ticketStatus">
+                <b>{{ticket?.status}}</b>
+              </span>
+              <span class="operatorTicket">
+                {{ticket?.operator_name}}
+              </span>
+              <p *ngIf="ticket?.ticket_number" class="ticketNumber">
+                <b># {{ticket?.ticket_number}}</b>
+              </p>
+            </div>
+            <span *ngIf="ticket?.ticket_date" class="dataList">
+                {{ticket?.ticket_date.slice(0,10) | date:'d/MM/yyyy'}}
+            </span>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>

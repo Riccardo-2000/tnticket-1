@@ -1,0 +1,88 @@
+<div class="row mb-3" @fadeSlideInOut>
+
+  <div class="col-12 col-md-12 mb-5 mt-3">
+    <div class="d-flex flex-column flex-md-row justify-content-start align-items-start">
+      <div class="w-100 text-center text-sm-left d-flex flex-column flex-sm-row justify-content-between">
+        <!-- <span>Dettaglio :</span> -->
+        <span class="fontLarge"><b>{{ticket.title}}</b></span>
+        <span class="fontLarge">#{{ticket.ticket_number}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6  col-md-3">
+    <div class="d-flex flex-column justify-content-start align-items-star text-center text-sm-left">
+      <p>Creato il : </p>
+      <p>{{ticket.createdAt | date : 'dd/MM/yyyy'}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-3  my-sm-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Priorità Ticket : </p>
+      <p *ngIf="ticket.priority === 'medium'">Media</p>
+      <p *ngIf="ticket.priority === 'high'">Alta</p>
+      <p *ngIf="ticket.priority === 'low'">Bassa</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-3 my-sm-0 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Data Lavorazione : </p>
+      <p>{{ticket?.ticket_date | date : 'dd/MM/yyyy'}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-3  my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Preso In Carico Da : </p>
+      <p>{{ticket?.operator_id?.username}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-0 my-md-5 ">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Aggiunto Da : </p>
+      <p>{{ticket?.added_by?.username}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-3 my-sm-0 my-md-5 ">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Tipo Intervento : </p>
+      <p>{{ticket?.category?.name}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-0 my-md-5 my-3 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Referente Azienda :</p>
+      <p>{{ticket?.ticket_reference_name}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-3 my-0 my-md-5 my-3 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>In Sede</p>
+      <p *ngIf="ticket?.external">Si</p>
+      <p *ngIf="!ticket?.external">No</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  my-0 my-3 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Note : </p>
+      <p>{{ticket?.note}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 my-0 my-3 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Descrizione : </p>
+      <p>{{ticket?.description}}</p>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6  col-md-6 my-0 my-md-5 my-3 my-md-0">
+    <div class="d-flex flex-column justify-content-start text-center text-sm-left">
+      <p>Tempistiche Intervento : </p>
+      <p>Inizio - Fine </p>
+      <div *ngFor="let time of ticket.ticket_time" class="ticketTimes d-flex align-items-center text-center text-sm-left">
+        <!--<p *ngFor="let x of time">{{x | date : 'medium'}}</p>-->
+        <p *ngFor="let x of time">{{x}}&nbsp;&nbsp;</p>
+      </div>
+      <p *ngIf="minutes">Minuti intervento: {{minutes}}</p>
+      <p *ngIf="addetti">Tecnici intervenuti: 2</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.borderCustom{
+    border: 2px solid black;
+}
+.present {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    button {
+        width: 30%;
+        background: black;
+        color: white;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+
+}

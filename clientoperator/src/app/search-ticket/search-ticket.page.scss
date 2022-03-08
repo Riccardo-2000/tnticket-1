@@ -1,0 +1,139 @@
+  ion-list {
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+        .ticketStatus {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-size: small !important;
+            font-weight: bold;
+        }
+        .operatorTicket {
+            font-size: small !important;
+            font-weight: bold;
+        }
+        .ticketNote {
+            font-size: small;
+            margin-top: 5px;
+        }
+        .priorityDiv {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            p {
+                font-size: x-small;
+                padding-top: 8px;
+            }
+        }
+        .categoriaList {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .ticketInfo {
+            display: flex;
+            max-width: 70%;
+            flex-direction: column;
+        }
+        .dataList {
+            margin-left: auto;
+        }
+
+    }
+  }
+.searchInputCustom {
+    width: 100%;
+    border: none;
+    border-bottom:2px solid black;
+}
+.searchDateButton {
+    width: 100%;
+    color: #ffff;
+    background: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    outline: none;
+    box-shadow: none;
+}
+.searchDateButton:focus {
+    width: 100%;
+    color: #ffff;
+    background: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    outline: none;
+    box-shadow: none;
+}
+.titleSearchDate {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+// new css
+.ticketDate{
+    padding: 10px;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+/* Zebra striping */
+
+tr:hover, tr:nth-of-type(odd):hover{
+    background-color: #4c434233;
+}
+
+tr:nth-of-type(odd) { 
+    background: #eee; 
+}
+th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+    padding: 6px; 
+}
+td { 
+    padding: 10px; 
+    border: 1px solid #fff; 
+    text-align: left; 
+}
+
+.bg-high {
+    background: rgba(255,58,45,1);
+
+}
+
+.bg-medium {
+    background: rgb(233, 210, 5);
+}
+.bg-low {
+    background:green;
+}
+
+.assistenza{
+    background: #3333339c;
+    color: white;
+}

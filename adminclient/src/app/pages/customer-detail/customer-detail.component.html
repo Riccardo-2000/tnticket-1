@@ -1,0 +1,252 @@
+<div class="text-center  py-5">
+    <div class="neuroShadowCard mx-3">
+        <h1 class="py-3 d-inline-flex">
+            Cliente:
+            <span class=" text-capitalize"> &nbsp; {{currentCustomer?.company_name }} </span>
+        </h1>
+
+    </div>
+
+    <div class="neuroShadowCard m-3 row">
+        <div class="col py-4">
+            <p>
+
+                Seleziona tutti <input type="checkbox" (click)="toggleAll()" name="" value="" />
+            </p>
+            <select (change)="invoiceMultipleTicket(content, $event.target.value)" class="form-control" name="" id="">
+                <option value="" disabled selected hidden>-- seleziona --</option>
+                <option value="fatturato">Fatturato</option>
+                <option value="a contratto">A contratto</option>
+            </select>
+        </div>
+        <div class="col py-4">
+            <p>
+                Ore da fatturare {{hoursToFatt}}
+            </p>
+            <input type="button" value="Download PDF" class="btn btn-danger"
+                (click)="downloadPDF(currentCustomer?.company_name)">
+
+        </div>
+
+    </div>
+
+
+    <div class="neuroShadowCard m-3  p-2">
+        <div class="text-center">
+
+            <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin mx-auto my-3 "></i>
+        </div>
+
+
+        <table class=" table table-striped w-100 " style="font-size: 13.5px;">
+            <thead>
+                <tr>
+
+                    <th class="sizemin" scope="col">Ticket Number</th>
+
+                    <th scope="col">Titolo</th>
+
+                    <th scope="col">Descrizione</th>
+
+                    <th scope="col">Priorità </th>
+
+                    <th scope="col">Attività</th>
+
+                    <th scope="col">Tecnico</th>
+
+                    <th scope="col">Inizio Attività</th>
+
+                    <th scope="col">Fine Attività</th>
+
+                    <th scope="col">Minuti lavorati </th>
+
+                    <th scope="col">Operazioni</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let ticket of customerTickets ">
+
+                    <td scope="col" class="d-flex">
+                        <input class="form-check position-relative mr-2" style="transform: translateY(25%);"
+                            [(ngModel)]="ticket.isChecked" (change)="optionToggled(ticket._id)" type="checkbox"
+                            value="ticket._id">
+                        <span>
+                            #{{ticket.ticket_number}}
+                        </span>
+                    </td>
+
+                    <td scope="col" style="max-width: 400px;">{{ticket.title}}</td>
+
+                    <td scope="col" style="max-width: 400px;"> {{ticket.description}}</td>
+
+                    <td scope="col">{{ticket.priority}}</td>
+
+                    <td scope="col" style="min-width: 100px;">
+                        <div *ngIf="ticket.external">On site</div>
+                        <div *ngIf="!ticket.external">Da remoto</div>
+                    </td>
+
+                    <td scope="col">{{ticket.operator_id?.username}}</td>
+
+                    <td style="min-width: 140px;" scope="col">
+                        <div *ngFor="let time of ticket?.ticket_time">
+                            {{time[0] | date:'d/MM/yyyy HH:mm' }}
+                            <!-- {{time[0] | date:"d/MM/yyyy HH:mm"}} -->
+                        </div>
+                    </td>
+                    <td style="min-width: 140px;" scope="col">
+                        <div *ngFor="let time of ticket?.ticket_time">
+                            {{time[1] | date:'d/MM/yyyy HH:mm'}}
+                            <!-- {{time[1] | date:"d/MM/yyyy HH:mm"}} -->
+                        </div>
+                    </td>
+                    <td scope="col">{{ticket.work_time}}</td>
+                    <td scope="col">
+                        <select (change)="invoiceSingleTicket(content,ticket._id, $event.target.value)"
+                            class="form-control" name="" id="">
+                            <option value="" disabled selected hidden>-- seleziona --</option>
+                            <option value="fatturato">fatturato</option>
+                            <option value="a contratto">a contratto</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Modale conferma fatturazione -->
+<ng-template #content let-modal class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class=" table table-striped">
+                <tbody>
+
+                    <tr *ngFor="let ticket of customerTickets ">
+                        <ng-container *ngIf="ticket.isChecked">
+                            <td>
+                                {{ticket.title}}
+                            </td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+
+            <button type="button" (click)="modal.dismiss()">Annulla</button>
+            <button type="button" (click)="modal.close()">Conferma</button>
+        </div>
+    </div>
+
+</ng-template>
+
+
+<!-- Tabella per pdf -->
+
+<div class="collapse" id="htmlData">
+
+    <div id="header" class="d-flex justify-content-between p-4 bg-light">
+        <div class="position-relative">
+
+            <img class="w-50" src="../../../assets/tn-logo.jpg" alt="">
+            <h3 class="text-capitalize position-absolute " style="left: 150px; bottom: 0; min-width: max-content;">
+                Cliente: {{currentCustomer?.company_name }}
+            </h3>
+        </div>
+
+        <div>
+            <h3>Tel: 02.9517550</h3>
+            <sub>Partita iva: 06024640960</sub>
+            <br>
+            <sub>Shop: <a href="https://www.initpc.com">www.initpc.com</a></sub>
+            <br>
+            <sub>Service: <a href="https://www.tnsolutions.it">www.tnsolutions.it</a></sub>
+
+        </div>
+
+    </div>
+    <table class=" table table-striped w-100 ">
+        <thead >
+            <tr>
+
+                <th class="sizemin" scope="col">Ticket Number</th>
+
+                <th scope="col">Titolo</th>
+
+                <th scope="col">Descrizione</th>
+
+                <th scope="col">Attività</th>
+
+                <th scope="col">Tecnico</th>
+
+                <th scope="col">Inizio Attività</th>
+
+                <th scope="col">Fine Attività</th>
+
+                <th scope="col">Minuti lavorati</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let ticket of customerTickets ">
+
+                <td scope="col" class="d-flex ">
+                    <span>
+                        #{{ticket.ticket_number}}
+                    </span>
+                </td>
+
+                <td scope="col" style="max-width: 400px;">{{ticket.title}}</td>
+
+                <td scope="col" style="max-width: 400px;"> {{ticket.description}}</td>
+
+                <td scope="col" style="min-width: 100px;">
+                    <div *ngIf="ticket.external">On site</div>
+                    <div *ngIf="!ticket.external">Da remoto</div>
+                </td>
+
+                <td scope="col">{{ticket.operator_id?.username}}</td>
+
+                <td style="min-width: 140px;" scope="col">
+                    <div *ngFor="let time of ticket?.ticket_time">
+                        {{time[0] | date:'d/MM/yyyy HH:mm' }}
+                        <!-- {{time[0] | date:"d/MM/yyyy HH:mm"}} -->
+                    </div>
+                </td>
+                <td style="min-width: 140px;" scope="col">
+                    <div *ngFor="let time of ticket?.ticket_time">
+                        {{time[1] | date:'d/MM/yyyy HH:mm'}}
+                        <!-- {{time[1] | date:"d/MM/yyyy HH:mm"}} -->
+                    </div>
+                </td>
+                <td scope="col" class="text-center">{{ticket.work_time}}</td>
+
+            </tr>
+        </tbody>
+
+
+    </table>
+    <div class="border d-flex justify-content-between p-4">
+        <p>Attività On site: {{onsiteTickets}}</p>
+        <p class=" text-left">
+            Ore totali: {{hoursToFatt}}
+            <br>
+            Esportato il: {{todaydate | date: 'dd/MM/yyyy'}}
+        </p>
+
+    </div>
+</div>

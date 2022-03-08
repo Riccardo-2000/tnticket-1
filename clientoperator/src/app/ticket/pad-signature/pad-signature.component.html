@@ -1,0 +1,14 @@
+
+<ion-row>
+    <ion-col size="12">
+        <div class="present">
+            <p>Firma Cliente</p>
+            <button (click)="this.signaturePad.clear()">Clear</button>
+        </div>
+    </ion-col>
+    <ion-col size="12" class="borderCustom">
+        <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()" #SignaturePad></signature-pad>
+    </ion-col>
+    
+</ion-row>
+

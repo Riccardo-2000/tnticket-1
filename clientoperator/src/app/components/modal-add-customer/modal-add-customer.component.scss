@@ -1,0 +1,174 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+ion-content{
+    width: 100%;
+
+}
+
+ion-list {
+    width: 100%;
+    ion-label  {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+    .ticketList {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        span {
+            font-size: x-small;
+        }
+        .categoriaList {
+            font-size: small;
+            font-weight: 600;
+        }
+    }
+    .categoriaList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .headerList {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        .titleList {
+            width: 100%;
+            text-align: left;
+            font-weight: 700;
+            font-size: large;
+        }
+        .close {
+            ion-icon {
+                color: rgba(255,58,45,1);
+                padding-right: 5px;
+            }
+        }
+    }
+
+
+}
+
+.insertNewCustomer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.name,.surname,.dataInserimento,.telefono,.submit,.locazione,.category {
+    width: 100%;
+    ion-item {
+        width: 100%;
+        ion-label {
+            font-weight: 600;
+        }
+    }
+    button {
+        width: 100%;
+        color: white;
+        background: black;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+}
+
+.labelTelefono {
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+.labelLocations {
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+.contract {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ion-item {
+        width: 100%;
+    }
+    ion-checkbox {
+        --background-checked:rgba(255,58,45,1);
+        --border-color-checked:black;
+        --border-color:rgba(255,58,45,1);
+    }
+}
+.contractHours {
+    width: 100%;
+}
+.requiredAlert {
+    font-size: x-small;
+    margin-left: auto;
+}
+.progress {
+    width: 100%;
+}
+.imagesPreviews {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .image {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-left:8px;
+        padding-right:8px;
+        ion-icon {
+            padding-top: 10px;
+            font-size:large;
+        }
+    }
+}
+
+#uploadPhoto {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+.uploadImageLabel {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
+    ion-icon {
+        padding-right: 10px;
+    }
+}
+.divOk {
+    position: absolute;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    .ok{
+        width: 80px;
+        height: 80px;
+        animation:okGif 1s forwards ease-in;
+        z-index: 9999;
+    }
+}
+
+@keyframes okGif {
+    0%{opacity: 0; transform: scale(1)}
+    50%{opacity: 1; transform: scale(1.2)}
+    100%{opacity: 0; transform: scale(1.0)}
+}

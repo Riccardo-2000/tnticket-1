@@ -1,0 +1,9 @@
+<div class="card mShadow mb-2 mb-md-0" >
+  <div class="card-body text-center">
+    <p>{{titleCard}}</p>
+    <span *ngIf="!max">{{data}}</span>
+    <div *ngIf="max" class="dislayData">
+      <span id="current-status">{{data}}</span> / <span>{{max}}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="headerList ion-padding-horizontal">
+      <p class="titleList">Ticket Disponibili</p>
+      <div class="close">
+        <ion-icon (click)="dismissModal()" name="close-outline"></ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+        <ion-item class="itemInput" lines="none">
+            <div class="inputDiv">
+                <input #searchInput class="ion-padding-vertical searchInput" placeholder=" &#xf002; Cerca Nei Ticket Assegnati
+                " type="text">
+            </div>
+        </ion-item>
+      <ion-list>
+        <ion-item *ngFor="let ticket of allTickets$ | async" (click)="dismissModal()" routerLink="/ticket/{{ticket?._id}}">
+          <div class="ticketList">
+            <div class="priorityShow">
+                <div class="status-{{ticket.priority}}"></div>
+                <span *ngIf="ticket?.priority.valueOf() == 'high' " class="letterPriority"><b>A</b></span>
+                <span *ngIf="ticket?.priority.valueOf() == 'medium' " class="letterPriority"><b>M</b></span>
+                <span *ngIf="ticket?.priority.valueOf() == 'low' " class="letterPriority"><b>B</b></span>
+            </div>
+            <div class="ticketInfo ion-float-left">
+                <p *ngIf="ticket?.customer_id" class="ticketNote"><b>{{ticket?.customer_id.company_name}}</b></p>
+                <span class="categoriaList">
+                    {{ticket?.title}}
+                </span>
+                <p *ngIf="ticket?.description" class="ticketNote">{{ticket?.description}}</p>
+                <p *ngIf="ticket?.ticket_reference_name" class="ticketNote ">
+                    <span class=""><b>{{ticket?.ticket_reference_name }}</b>
+                    </span>
+                </p>
+                <span class="ticketStatus">
+                    <b>{{ticket?.status}}</b>
+                </span>
+                <span class="operatorTicket">
+                    {{ticket?.operator_id?.username}}
+                </span>
+                <span *ngIf="ticket?.ticket_number" class="categoria">
+                  <b>Ticket Numero : # {{ticket?.ticket_number}}</b>
+              </span>
+            </div>
+            <span *ngIf="ticket?.ticket_date" class="dataList">
+                {{ticket?.ticket_date.slice(0,10) | date:'d/MM/yyyy'}}
+            </span>
+        </div>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>

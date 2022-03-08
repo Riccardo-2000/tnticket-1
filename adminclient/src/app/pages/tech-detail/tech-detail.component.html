@@ -1,0 +1,227 @@
+<div class="text-center  py-5">
+    <div class="neuroShadowCard mx-3">
+        <h1 class="py-3 d-inline-flex">
+            Tecnico: 
+            
+            
+            <span class="">
+                <form class="text-capitalize" action="">
+                    <select name="" id="" 
+                     (change)="changeTech($event.target.value)">
+                        <option class="text-capitalize" value="">{{newTechData?.username}}</option>
+                        <option *ngFor="let techs of allTech" class="text-capitalize" [value]="techs._id" >
+                            {{techs?.username}}
+                        </option>
+                    </select> 
+                </form>
+            </span>
+
+        </h1>
+        <!-- <div>
+
+            Refresh pagina
+            <label class="switch mx-2">
+                <input (change)="stopRefresh()" type="checkbox" checked #toggleSwitch>
+                <span class="slider round"></span>
+            </label>
+        </div> -->
+
+        <form [formGroup]="formDateRange" class="row container px-3  mx-auto pt-5"
+            (ngSubmit)="getRangeDate(formDateRange.value)">
+            <div class="form-group col">
+                <label>Start</label>
+                <input type="date" class="form-control" formControlName="start">
+            </div>
+            <div class="form-group col">
+                <label>End</label>
+                <input type="date" class="form-control" formControlName="end">
+            </div>
+            <div class="form-group col-2 position-relative">
+                <input type="submit" class="form-control position-absolute fixed-bottom">
+            </div>
+        </form>
+        <div class="my-3">
+
+            <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin "></i>
+
+            <p *ngIf="timeWorked!=0">Ore lavorative: {{timeWorked }}</p>
+        </div>
+
+    </div>
+
+    <div class="neuroShadowCard m-3  p-2">
+
+        <table class=" table table-striped w-100">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <strong>Azioni</strong>
+                    </th>
+                    <th scope="col">
+                        <strong>Cliente</strong>
+                    </th>
+                    <th scope="col">
+                        <strong>Titolo</strong>
+                    </th>
+                    <th scope="col">
+                        <strong>Intervento</strong>
+                    </th>
+
+                    <th scope="col">
+                        <strong>Data inizio</strong>
+                    </th>
+                    <th scope="col">
+                        <strong>Data Fine</strong>
+                    </th>
+                    <th scope="col">
+                        <strong>Status</strong>
+                        <label class="switch mx-2">
+                            <input (change)="changestatus()" type="checkbox" #toggleSwitch>
+                            <span class="slider round"></span>
+                        </label>
+                    </th>
+                    <th scope="col">
+                        <strong>Ore</strong>
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+                <ng-container *ngFor="let ticket of techTickets">
+
+                    <tr *ngIf="statusflag && ticket.status=='Risolto'">
+
+                        <td scope="col">
+                            <i (click)="cancelTicket(ticket?._id, content)" class="fas fa-times pr-3 iconsTable"></i>
+
+                        </td>
+                        <td scope="col">
+                            {{ticket.customer_id?.company_name}}
+
+                        </td>
+                        <td scope="col" style="max-width: 400px;">
+                            {{ticket.title}}
+
+                        </td>
+                        <td scope="col">
+                            {{ticket.external}}
+
+                        </td>
+                        <td scope="col">
+                            <div *ngFor="let time of ticket?.ticket_time">
+
+                                {{time[0] | date:"d/MM/yyyy HH:mm"}}
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div *ngFor="let time of ticket?.ticket_time">
+
+                                {{time[1] | date:"d/MM/yyyy HH:mm"}}
+                            </div>
+                        </td>
+                        <td scope="col">
+
+                            {{ticket.status}}
+                        </td>
+                        <td scope="col">
+
+                            <div *ngIf="ticket.work_time">
+                                {{ticket?.work_time}}
+                            </div>
+                            <div *ngIf="ticket.work_time<=0">0</div>
+
+                        </td>
+
+                    </tr>
+                    <!-- view ticket tecnico con stato  diverso da risolto -->
+
+                    <tr *ngIf="!statusflag && ticket.status!='Risolto'">
+
+                        <td scope="col">
+                            <i (click)="cancelTicket(ticket?._id, content)" class="fas fa-times pr-3 iconsTable"></i>
+
+                        </td>
+                        <td scope="col">
+                            {{ticket.customer_id.company_name}}
+
+                        </td>
+                        <td scope="col" style="max-width: 400px;">
+                            {{ticket.title}}
+
+                        </td>
+                        <td scope="col">
+                            {{ticket.external}}
+
+                        </td>
+                        <td scope="col">
+                            <div *ngFor="let time of ticket?.ticket_time">
+
+                                {{time[0] }}
+                            </div>
+                        </td>
+                        <td scope="col">
+                            <div *ngFor="let time of ticket?.ticket_time">
+
+                                {{time[1] }}
+                            </div>
+                        </td>
+                        <td scope="col">
+
+                            {{ticket.status}}
+                        </td>
+                        <td scope="col">
+
+
+                            {{ticket?.work_time}}
+
+                        </td>
+
+                    </tr>
+
+
+                </ng-container>
+            </tbody>
+
+
+            <!-- view ticket tecnico con stato risolto -->
+
+
+        </table>
+    </div>
+</div>
+
+<!-- Modale conferma Eliminazione ticket -->
+<ng-template #content let-modal class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Il seguente ticket verrà eliminato</h5>
+            <button type="button" class="close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class=" table table-striped">
+                <tbody>
+                    
+
+                    <tr *ngFor="let ticket of techTickets ">
+                        <ng-container *ngIf="ticket.isChecked">
+                            <td>
+                                {{ticket.title}}
+                            </td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+
+            <button type="button" (click)="modal.dismiss()">Annulla</button>
+            <button type="button" (click)="modal.close()">Conferma</button>
+        </div>
+    </div>
+
+</ng-template>

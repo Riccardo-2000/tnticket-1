@@ -1,0 +1,13 @@
+<ion-content>
+        <ion-icon (click)="dismissModal()" name="close-outline"></ion-icon>
+    <ion-slides pager="false" [options]="slideOpts">
+      <ion-slide *ngFor="let image of images ; let i = index">
+        <div class="divImage">
+        <img src={{image}} alt="">
+        <p (click)="emitDeleteImageEvent(i)" class="ion-padding-top">
+            ELIMINA
+        </p>
+        </div>
+      </ion-slide>
+    </ion-slides>
+</ion-content>

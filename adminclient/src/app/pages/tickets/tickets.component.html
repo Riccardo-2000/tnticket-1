@@ -1,0 +1,383 @@
+<div class="row mx-2">
+  <div class="col-12 col-md-12 mt-3">
+    
+    <div class="neuroShadowCard">
+      <div class="search   w-100">
+        <form [formGroup]="searchData" >
+          <div class="form-row py-3 px-2 w-100">
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+              <div class="input-group mb-3">
+                <input #searchInput type="text" formControlName="titleSearch" class="form-control searchCustom  rounded-0" placeholder="Inserisci numero Ticket" aria-label="Username" aria-describedby="basic-addon1" id="search">
+              </div>
+            </div>
+            <div class="col-12 col-md-2 mb-2 mb-md-0">
+              <input type="date" [(ngModel)]="dateOne" formControlName="startDate"   class="form-control selectCustom" placeholder="State">
+            </div>
+            <div class="col-12 col-md-2 mb-2 mb-md-0">
+              <input type="date" [(ngModel)]="dateTwo" formControlName="endDate"  class="form-control selectCustom" placeholder="Zip">
+            </div>
+            <div class="col-12 col-md-2 mb-2 mb-md-0">
+              <button (click)="search(searchData.value)" type="submit" class="btn btnCustom border-gradient-box w-100 ">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <table class="table  table-striped">
+        <thead>
+          <tr>
+            <th scope="col action dCustom">Azioni</th>
+            <th scope="col title">Numero ticket</th>
+            <th scope="col title">Titolo</th>
+            <th scope="col customer" class="operator dCustom">Tecnico 
+              <label class="switch ">
+                <input (change)="showNoTechTickets()" type="checkbox" #toggleSwitch>
+                
+                <span class="slider round"></span>
+            </label>
+            </th>
+            <th scope="col customer" class="customer dCustom" >Cliente</th>
+            <th scope="col " class="data dCustom">Data <span class="dataInsert">Inserimento</span></th>
+            <th scope="col" class=" dCustom">Status</th>
+            <th scope="col" class="priority dCustom">Urgenza</th>
+          </tr>
+        </thead>
+        <tbody >
+          <ng-container *ngFor="let ticket of allTickets$ | async | slice: (page-1) * 30 : (page-1) * 30 + 30">
+
+            
+            <tr >
+              <th scope="row" class="dCustom">
+                <i (click)="cancelTicket(ticket?._id, ticketdelete)" class="fas fa-times pr-3 iconsTable"></i>
+                <i (click)="open(content, ticket?._id)" class="fas fa-eye px-3 iconsTable"></i>
+              </th>
+              <th scope="row">#{{ticket?.ticket_number}}</th>
+              <th scope="row">{{ticket?.title}}</th>
+              <th scope="row" class="operator">{{ticket?.operator_id?.email}}</th>
+              <td class="customer dCustom">{{ticket?.customer_id?.company_name}}</td>
+              <td class="data dCustom">{{ticket?.createdAt | date:'d/MM/yyyy'}}</td>
+              <td class="priority dCustom">{{ticket?.status}}</td>
+              <td class="priority dCustom">{{ticket?.priority}}</td>
+            </tr>
+            
+          </ng-container>
+          </tbody>
+      </table>
+      <div class="my-3 text-center">
+
+        <i *ngIf="loaded" class="fa fa-circle-o-notch fa-spin "></i>
+
+      </div>
+      <ngb-pagination *ngIf="(allTickets$ | async)?.length > 0" class="d-flex justify-content-center dCustom" size="sm" [(page)]='page' [pageSize]="30" [collectionSize]="(allTickets$ | async)?.length"></ngb-pagination>
+    </div>
+  </div>
+  <div #scroll class="col-12 col-md-12 mt-3">
+    <div class="neuroShadowCard py-3 px-2">
+      <form [formGroup]="newTicketData" (ngSubmit)="newTicket(newTicketData.value)">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Titolo</label>
+            <input ngDefaultControl formControlName="title" type="text" class="form-control" placeholder="Titolo">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Descrizione</label>
+            <input ngDefaultControl formControlName="description" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 col-md-6">
+            <label for="inputCity">Categoria</label>
+            <select ngDefaultControl formControlName="category"  class="form-control">
+              <option *ngFor="let category of categories" value="{{category._id}}" [selected]="category._id === ticketEdit?.category ">{{category?.name}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Data Lavorazione</label>
+            <input ngDefaultControl formControlName="ticket_date" type="date" class="form-control">
+          </div>
+        </div>
+        <div class="form-row">
+          <div *ngIf="!customerIToCreate" class="form-group col-12 ">
+            <label for="inputState">Cliente</label>
+            <select ngDefaultControl formControlName="customer_id" class="form-control">
+              <option  *ngFor="let customer of allCustomers" value="{{customer?._id}}" [selected]="customer?._id === ticketEdit?.customer_id">{{customer?.company_name}}</option>
+            </select>
+          </div>
+          <div *ngIf="customerIToCreate" class="form-group col-12 ">
+            <label for="inputState">Cliente</label>
+            <select  value="{{customerIToCreate}}" class="form-control" [(ngModel)]="customerIdModel" [ngModelOptions]="{standalone: true}">
+              <option  *ngFor="let customer of allCustomers" value="{{customer?._id}}" [selected]="customerIToCreate === customer?._id">{{customer?.company_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4 ">
+            <label class="form-check-label">Nome Referente</label>
+            <input ngDefaultControl formControlName="ticket_reference_name" type="text" class="form-control">
+          </div>
+          <div class="form-group col-md-4 ">
+            <label class="form-check-label">Numero Referente</label>
+            <input ngDefaultControl formControlName="ticket_reference_number" type="text" class="form-control">
+          </div>
+          <div class="form-group col-md-4 ">
+            <label class="form-check-label">Locazione Referente</label>
+            <input ngDefaultControl formControlName="ticket_reference_location" type="text" class="form-control">
+          </div>
+          <div class="form-group col-md-12">
+            <label><b>Tipologia Intervento</b></label>
+            <select ngDefaultControl formControlName="ticket_mode" class="form-control"  interface="action-sheet">
+              <option value="Attività Laboratorio">Attività Laboratorio</option>
+              <option value="Attività di Assistenza">Attività di Assistenza</option>
+            </select>
+          </div>
+          <div class="form-group col-md-12">
+            <div class="tempAdd w-100">
+              <span class="lead"><b>Tempistiche</b></span>
+              <input type="button" (click)="addTempsToSend()" class="btn btnCustom" value="Aggiungi Tempistica">
+              
+            </div>
+          </div>
+          <div class="form-group col-md-4">
+            <label>In Collaborazione</label>
+            <select  class="form-control"  value="ticketEdit?.operator_id" [(ngModel)]="collabWithTemp" formControlName="ticket_time">
+              <option *ngFor="let tech of allTechs" value="{{tech?.username}}" >{{tech?.username}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label>Start</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="startTemp"  formControlName="ticket_time" >
+          </div>
+          <div class="form-group col-md-4">
+            <label>End</label>
+            <input type="datetime-local" class="form-control" [(ngModel)]="endTemp" formControlName="ticket_time">
+          </div>
+        </div>
+        <div *ngIf="ticket_times.length > 0 " class="w-100">
+          <div *ngFor="let time of ticket_times ; let i = index" class="form-row">
+            <div *ngIf="ticket_times.length > 0 " class="form-group col-md-4">
+              <p><span>{{i +1 + ")"}}</span> Con : {{time[2]}}</p>
+            </div>
+            <div *ngIf="ticket_times.length > 0 " class="form-group col-md-4">
+              <p> Inizio : {{time[1]}}</p>
+            </div>
+            <div *ngIf="ticket_times.length > 0 " class="form-group col-md-4">
+              <p> Fine : {{time[0]}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <div class="form-check ">
+            <input ngDefaultControl formControlName="external" type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Intervento In Sede Cliente</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="inputAddress2">Tecnico</label>
+            <select ngDefaultControl formControlName="operator_id"  class="form-control"  value="ticketEdit?.operator_id">
+              <option *ngFor="let tech of allTechs" value="{{tech?._id}}" [selected]="tech?._id === ticketEdit?.operator_id">{{tech?.username}}</option>
+            </select>
+          </div>
+          <div class="form-group col-6">
+            <label for="inputAddress2">Urgenza</label>
+            <select ngDefaultControl formControlName="priority"  class="form-control" value="{{ticketEdit?.priority}}">
+              <option selected>{{ticketEdit?.priority}}</option>
+              <option>high</option>
+              <option>medium</option>
+              <option>low</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-12 col-md-6">
+            <label for="inputCity">Note</label>
+            <input ngDefaultControl formControlName="note" value="{{ticketEdit?.note}}" type="text" class="form-control" id="inputPassword4">
+          </div>
+          <div class="form-group col-6">
+            <label for="inputAddress2">Status</label>
+            <select ngDefaultControl formControlName="status" class="form-control">
+              <option *ngFor="let status of statuses?.statuses" value="{{status}}" [selected]="status === ticketEdit?.status">{{status}}</option>
+            </select>
+          </div>
+          <div class="col-md-12 w-100 p-0">
+            <div class="w-100 custom-dropzone d-flex align-items-center justify-content-center m-auto" ngx-dropzone>
+              <ngx-dropzone  (change)="onSelect($event)">
+                <ngx-dropzone-label>Trascina i tuoi file qui</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                  <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                </ngx-dropzone-image-preview>
+              </ngx-dropzone>
+            </div>
+          </div>
+        </div>
+        <div class="form-row my-5">
+          <div class="form-group col-md-12 text-center">
+            <button type="submit" class="btn btn-primary w-100">Crea</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modale -->
+<ng-template #content let-modal size="xl" centered>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-md-12 my-3">
+          <p class="titleItems">Titolo</p>
+          <input name="title" value="{{ticketEdit?.title}}" type="text" class="form-control" aria-label="Large" [(ngModel)]="model.title">
+        </div>
+        <div class="col-12 col-md-12 my-3">
+          <p class="titleItems">Descrizione</p>
+          <input name="description" value="{{ticketEdit?.description}}" type="text" class="form-control" [(ngModel)]="model.description">
+        </div>
+        <div class="col-12 col-md-6 my-3">
+          <p class="titleItems">Cliente</p>
+          <select name="customer_id" class="form-control"  [(ngModel)]="model.customer_id">
+            <option *ngFor="let customer of allCustomers"  value="{{ticketEdit?.customer_id._id}}" [selected]="customer._id === ticketEdit?.customer_id">{{customer?.company_name}}</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-6 my-3">
+          <p class="titleItems">Tecnico</p>
+          <select name="operator_id" class="form-control"  value="{{ticketEdit?.operator_id?._id}}" [(ngModel)]="model.operator_id">{{ticketEdit?.operator_id?._id}}
+            <option *ngFor="let tech of allTechs" value="{{tech?._id}}">{{tech?.username}}</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-12 my-3 d-flex align-items-center">
+          <div class="form-check my-auto">
+            <input name="external" type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Intervento In Sede Cliente</label>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">Nome Referente</p>
+          <input name="ticket_reference_name" value="{{ticketEdit?.ticket_reference_name}}" type="text" class="form-control" [(ngModel)]="model.ticket_reference_name">
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">Numero Referente</p>
+          <input name="ticket_reference_number" value="{{ticketEdit?.ticket_reference_number}}" type="text" class="form-control" [(ngModel)]="model.ticket_reference_number">
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">Locazione Referente</p>
+          <input name="ticket_reference_location" value="{{ticketEdit?.ticket_reference_location}}" type="text" class="form-control" [(ngModel)]="model.ticket_reference_location">
+        </div>
+        <div class="col-12 col-md-12">
+          <p class="d-flex align-items-center justify-content-between lead"><b>Tempistica</b> <button (click)="addTempToUpdate()" class="btn btnUpdateTemp">Aggiungi</button>   </p>
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">In Collaborazione</p>
+          <select  class="form-control"  value="ticketEdit?.operator_id" [(ngModel)]="collab" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let tech of allTechs" value="{{tech?.username}}" >{{tech?.username}}</option>
+          </select>
+          <div *ngIf="ticketEdit?.ticket_time" class="w-100 pt-3">
+            <p *ngFor="let start of ticketEdit?.ticket_time; let i = index"  class="titleItems">{{i + 1}}) {{start[2]}}</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">Start</p>
+          <input name="ticket_date" type="datetime-local" class="form-control" [(ngModel)]="start">
+          <div *ngIf="ticketEdit?.ticket_time" class="w-100 pt-3">
+            <p *ngFor="let start of ticketEdit?.ticket_time; let i = index"  class="titleItems">{{i + 1}}) {{start[0]}}</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4 my-3">
+          <p class="titleItems">End</p>
+          <input name="ticket_date" type="datetime-local" class="form-control" [(ngModel)]="end">
+          <div *ngIf="ticketEdit?.ticket_time" class="w-100 pt-3">
+            <p *ngFor="let end of ticketEdit?.ticket_time"  class="titleItems">{{end[1]}}</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 my-3">
+          <p class="titleItems">Data Inserimento</p>
+          <p>{{ticketEdit?.createdAt}}</p>
+        </div>
+        <div class="col-12 col-md-6 my-3">
+          <p class="titleItems">Data Lavorazione</p>
+          <input name="ticket_date" value="{{ticketEdit?.ticket_date}}" type="date" class="form-control" [(ngModel)]="model.ticket_date">
+        </div>
+        <div class="col-12 col-md-3 my-3">
+          <p class="titleItems">Status</p>
+          <select name="status" class="form-control" [(ngModel)]="model.status">
+            <option *ngFor="let status of statuses?.statuses" value="{{status}}" [selected]="status === ticketEdit?.status" >{{status}}</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+          <p class="titleItems">Categoria</p>
+          <select name="category" class="form-control" [(ngModel)]="model.category">
+            <option *ngFor="let category of categories" value="{{category._id}}" [selected]="category._id === ticketEdit?.category._id " >{{category.name}}</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+          <p class="titleItems">Urgenza</p>
+          <select name="priority"  class="form-control" value="{{ticketEdit?.priority}}" [(ngModel)]="model.priority">
+            <option selected>{{ticketEdit?.priority}}</option>
+            <option value="high">high</option>
+            <option value="medium">medium</option>
+            <option value="low">low</option>
+          </select>
+        </div>
+        <div class="col-12 col-md-3 my-3">
+          <p class="titleItems">Aggiunto Da</p>
+          <p>{{ticketEdit?.added_by.username}}</p>
+        </div>
+        <div class="col-12 col-md-12 my-3">
+          <p class="titleItems">Note</p>
+          <input name="note" type="text" class="form-control" [(ngModel)]="model.note" [value]="ticketEdit?.note">
+        </div>
+        <div *ngIf="ticketEdit?.log_delega.length > 0" class="col-12 col-md-12">
+          <p class="titleItems">Delege</p>
+          <div class="w-100">
+            <p *ngFor="let delega of ticketEdit.log_delega" >{{delega}}</p>
+          </div>
+        </div>
+        <div *ngFor="let image of ticketEdit?.images; let i = index" class="col-12 col-md-4 my-3">
+          <div class="imageToView">
+            <img class="img-fluid" [src]="image" alt="Immagine Cliente">
+            <p><button (click)="deleteImageFromArray(i)" class="btn btnCustomDeleteImage mt-2">Elimina</button></p>
+          </div>
+        </div>
+        <div class="col-12 col-md-12">
+          <button type="submit" (click)="updateTicketReq()" class="btn btnCustomModal w-100">Modifica</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Modale conferma Eliminazione ticket -->
+<ng-template #ticketdelete let-modal class="modal-dialog" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Il seguente ticket verrà eliminato</h5>
+          <button type="button" class="close" (click)="modal.dismiss()">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <table class=" table table-striped">
+              <tbody>
+                  
+
+                  <tr >
+                      <ng-container >
+                          <td>
+                              {{ticketToDelete?.title}}
+                              a
+                              {{ticketToDelete}}
+                          </td>
+                      </ng-container>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      <div class="modal-footer">
+
+          <button type="button" (click)="modal.dismiss()">Annulla</button>
+          <button type="button" (click)="modal.close()">Conferma</button>
+      </div>
+  </div>
+
+</ng-template>

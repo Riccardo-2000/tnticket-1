@@ -1,0 +1,42 @@
+.title {
+    font-weight: bold;
+    font-size: medium;
+}
+
+ion-checkbox {
+    --background-checked:rgba(255,58,45,1);
+    --border-color-checked:black;
+    --border-color:rgba(255,58,45,1);
+}  
+
+.buttonSubmit {
+    width: 100%;
+    background: black;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+}
+.buttonSubmit:focus {
+    width: 100%;
+    background: black;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+}
+
+.titleOperatività{
+    font-weight: bold;
+    font-size: medium;
+}
+.labelOperatività {
+    font-size: small;
+}
+.ferie {
+    width: 100%;
+    font-weight: 600;
+    // text-align: center;
+}

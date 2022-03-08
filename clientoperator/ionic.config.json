@@ -1,0 +1,8 @@
+{
+  "name": "tnticketapp",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

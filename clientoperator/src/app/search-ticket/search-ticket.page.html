@@ -1,0 +1,146 @@
+<app-header></app-header>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <div class="searchBar">
+                    <!-- <ion-searchbar #searcInput  placeholder="Cerca Ticket" (change)="searchCriteria($event.target.value)" type="text" (ionClear)="getAllTickets()" cancel-button-icon></ion-searchbar> -->
+                    <ion-item lines="none">
+                        <input placeholder="Cerca Ticket" class="searchInputCustom ion-padding-vertical" #searchInput
+                            type="text">
+                    </ion-item>
+                </div>
+                <!-- <ion-col class="ion-padding-vertical">
+                    <div class="searchByDate">
+                        <ion-item lines="none" class="border-gradient-left border-gradient-red">
+                            <div class="titleSearchDate">
+                                <p><b>Cerca Per Data</b></p>
+                                <ion-icon (click)="showSearchByDate = !showSearchByDate" name="search-outline" class="ion-padding-end"></ion-icon>
+                            </div>
+                        </ion-item>
+                        <div [hidden]="!showSearchByDate">
+                            <ion-item lines="none">
+                                <ion-input  name="recordHour" [(ngModel)]="dateOne" type="datetime-local"></ion-input>
+                            </ion-item>
+                            <ion-item lines="none">
+                                <ion-input  name="recordHour" [(ngModel)]="dateTwo" type="datetime-local"></ion-input>
+                            </ion-item>
+                            <ion-item lines="none">
+                                <button class="searchDateButton" (click)="searchByDate()" >Cerca</button>
+                            </ion-item>
+                        </div>
+                    </div>
+                </ion-col> -->
+            </ion-col>
+        </ion-row>
+        <ion-list-header class="border-gradient-left border-gradient-black">
+            <p class="titleList">Risultati Ricerca</p>
+        </ion-list-header>
+        <!-- <ion-row class="ion-paddint-top">
+            <ion-col>
+                <ion-list *ngIf="(allTickets$ | async) as allTickets; else loader">
+                    <ion-item *ngFor="let ticket of allTickets$ |async " routerLink="/ticket/{{ticket._id}}" >
+                        <div class="ticketList">
+                            <div class="priorityDiv">
+                                <div class="status-{{ticket.priority}}"></div>
+                                <p *ngIf="ticket.priority.valueOf() == 'high'" class="letterPriority"><b>A</b></p>
+                                <p *ngIf="ticket.priority.valueOf() == 'medium'" class="letterPriority"><b>M</b></p>
+                                <p *ngIf="ticket.priority.valueOf() == 'low'" class="letterPriority"><b>B</b></p>
+                            </div>
+                            <div class="ticketInfo ion-float-left">
+                                <p *ngIf="ticket?.customer_id" class="ticketNote">
+                                    <b>{{ticket?.customer_id?.company_name}}</b>
+                                </p>
+                                <span class="categoriaList">
+                                    {{ticket.title}}
+                                </span>
+                                <p *ngIf="ticket?.description" class="ticketNote">
+                                    {{ticket.description}}
+                                </p>
+                                <p *ngIf="ticket?.ticket_reference_name" class="ticketNote">
+                                    {{ticket?.ticket_reference_name}}
+                                </p>
+                                <span class="ticketStatus">
+                                    {{ticket.status}}
+                                </span>
+                                <span *ngIf="ticket?.operator_id?.username" class="operatorTicket">
+                                    {{ticket?.operator_id?.username}}
+                                </span>
+                            </div>
+                            <span *ngIf="ticket.ticket_date" class="dataList">
+                                {{ticket.ticket_date.slice(0,10) | date:'dd/MM/yyyy'}}
+                            </span>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row> -->
+        <div *ngIf="loaded" class="loaderDiv">
+            <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+        </div>
+        <table class="ion-margin-vertical">
+            <tr class="ticketData">
+                <th></th>
+                <!-- <th>Azioni</th> -->
+                <th>Numero ticket</th>
+                <th>Nome azienda</th>
+                <!-- <th>Aperto da:</th> -->
+                <th>Problematica</th>
+                <th>Referente</th>
+                <th>Status</th>
+                <th>Tipo</th>
+                <th>Data</th>
+            </tr>
+            <tr class="ticketData " *ngFor="let ticket of allTickets$ |async " routerLink="/ticket/{{ticket?._id}}">
+                <td style="display: table-cell;" size="auto" class="priorityShow bg-{{ticket.priority}}">
+                    <div [hidden]="ticket?.reminder.length == 0" class="">
+                        <b>
+                            <div class="">
+                                {{ticket?.reminder.length}}<ion-icon name="volume-high-outline"></ion-icon>
+                            </div>
+                        </b>
+                    </div>
+                    <div [hidden]="ticket?.priority != 'high'" class="ion-text-center">
+                        <ion-text color="light">
+
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+
+                        </ion-text>
+                    </div>
+                </td>
+                <!-- <td>
+                    <div  style="display: flex; font-weight: bold;">
+                        <button>
+                            <i (click)="cloneTicket(ticket._id)" class="fa fa-clone" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </td> -->
+                <td><b>#{{ticket?.ticket_number}}</b></td>
+                <td>{{ticket?.customer_id?.company_name.toUpperCase()}}</td>
+                <!-- <td style="min-width: 200px;" ><b>{{ticket?.ticketOpening}}</b></td> -->
+                <td>{{ticket?.title}}</td>
+                <td>{{ticket?.ticket_reference_name }}</td>
+                <td style="min-width: 250px;">{{ticket?.status}}</td>
+                <td [ngClass]="ticket?.ticket_mode=='Attività di Assistenza' ? 'assistenza' : ''"
+                    style="min-width: 200px;">
+                    {{ticket?.ticket_mode}}
+                </td>
+                <td>
+                    <b>{{ticket?.createdAt | date:'d/MM/yyyy'}}</b>
+                    <br>
+                    <b>{{ticket?.createdAt | date:'HH:mm'}}</b>
+                </td>
+
+            </tr>
+        </table>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <app-tabs></app-tabs>
+</ion-footer>
+
+<ng-template #loader>
+    <div class="loaderDiv">
+        <img src="../../assets/images/loader.gif" alt="loader" srcset="">
+    </div>
+</ng-template>

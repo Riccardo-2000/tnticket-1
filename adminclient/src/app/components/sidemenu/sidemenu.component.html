@@ -1,0 +1,31 @@
+<div id="myHeader" class="bgSide neuroShadowSide h-100">
+  <div  class="links">
+    <div class="w-100" >
+      <div routerLink="/home" class="tickets mt-5 py-3 my-4 ">
+        <i class="fas fa-home p-1"></i>
+        <span  class="listItem">Home</span>
+      </div>
+    <div class="w-100" >
+      <div routerLink="/tickets" class="tickets mt-5 py-3 my-4 ">
+        <i class="fas fa-clipboard-list  p-1"></i>
+        <span  class="listItem">Tickets</span>
+      </div>
+      <div routerLink="/customers" class="tickets  py-3 my-4 ">
+        <i class="fas fa-user-friends p-1"></i>
+        <span class="listItem">Clienti</span>
+      </div>
+      <div routerLink="/operators" class="tickets  py-3 my-4 ">
+        <i class="fas fa-user-tie p-1"></i>
+        <span class="listItem">Operatori</span>
+      </div>
+      <div routerLink="/techs" class="tickets  py-3 my-4 ">
+        <i class="fas fa-user-cog p-1"></i>
+        <span class="listItem">Tecnici</span>
+      </div>
+      <div (click)="logOut()" class="tickets  py-3 my-4 ">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="listItem">Log Out</span>
+      </div>
+    </div>
+  </div>
+</div>

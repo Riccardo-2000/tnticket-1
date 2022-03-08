@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '../node_modules//bootstrap/dist/css/bootstrap.min.css';
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+
+* {
+
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.vh-100 {
+
+  min-height: 100vh;
+
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: black;
+  border-color: black;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: .5rem .75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  color: white;
+  background-color: black;
+  border: 1px solid #dee2e6;
+
+}
+
+.fontsmaller-3 {
+  font-size: x-small;
+}
+
+.loader{
+  width: 100px !important;
+}

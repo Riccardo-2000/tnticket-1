@@ -1,0 +1,86 @@
+<div class="row mx-2">
+  <div class="col-12 col-md-12 mt-5">
+    <div class="neuroShadowCard">
+      <p class="tableTitleTech px-2 py-2 text-center">Elenco Operatori</p>
+      <table class="table  table-striped">
+        <thead>
+          <tr>
+            <th scope="col action" class="dCustom ">Azioni</th>
+            <th scope="col title" class="">Nome</th>
+            <th scope="col customer" class="operator dCustom">Email</th>
+            <th scope="col customer" class="customer  " >Disponibile</th>
+
+          </tr>
+        </thead>
+        <tbody *ngIf="(allUsers$ | async) as operators">
+          <tr *ngFor="let operator of operators">
+            <th scope="row" class="dCustom ">
+              <i (click)="deleteOperator(operator?._id)" class="fas fa-times pr-3 iconsTable"></i>
+              <i (click)="editOperator(operator?._id)" class="fas fa-eye px-3 iconsTable"></i>
+            </th>
+              <th scope="row">{{operator.username}}</th>
+              <th scope="row" class="operator dCustom">{{operator?.email}}</th>
+              <td *ngIf="operator.status_holiday" class="customer">Si</td>
+              <td *ngIf="!operator.status_holiday" class="customer">No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mt-3">
+      <form [formGroup]="newOperator" (ngSubmit)="sendNewOperator()">
+        <div class="neuroShadowCard py-3 px-4">
+          <p class="tableTitleTech px-2 py-2 text-center">Crea Nuovo</p>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom01">Username</label>
+              <input formControlName="username" type="text" class="form-control"  placeholder="Username">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom02">Email</label>
+              <input  formControlName="email" type="text" class="form-control"  placeholder="email">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="validationCustom02">Password</label>
+              <input  formControlName="password" type="password" class="form-control"  placeholder="Password" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="disabledSelect">Opeatività</label>
+              <select formControlName="status_holiday" id="disabledSelect" class="form-control">
+                <option value="false">No</option>
+                <option value="true" selected>Si</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary w-100" type="submit">Crea</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-md-6 mt-3">
+      <div class="neuroShadowCard py-3 px-4">
+        <p class="tableTitleTech px-2 py-2 text-center">Modifica</p>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Username</label>
+            <input type="text" class="form-control" placeholder="Username" [(ngModel)]="operatoToEdit.username" >
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Email</label>
+            <input type="text" class="form-control" placeholder="email" [(ngModel)]="operatoToEdit.email">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom02">Password</label>
+            <input  type="text" class="form-control" placeholder="Password" [(ngModel)]="operatoToEdit.password" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="disabledSelect">Opeatività</label>
+            <select id="disabledSelect" class="form-control" [(ngModel)]="operatoToEdit.status_holiday">
+              <option value="false">Si</option>
+              <option value="true" selected>No</option>
+            </select>
+          </div>
+        </div>
+        <button (click)="sendNewOperatorData()" class="btn btn-primary w-100" type="submit">Modifica</button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+.navCustom {
+
+  background: black;
+  color: white;
+
+  a {
+    color: inherit;
+  }
+
+
+}
+
+
+.rowHero {
+  background: black;
+  min-height: 30vh;
+}
+
+.traslateYC{
+
+  transform: translateY(-50px);
+
+}
+
+.navActivities {
+
+  background:black ;
+  color: white;
+  border-radius: 10px 10px 0px 0px;
+}
+
+
+.cBoard {
+  font-family: 'Lobster', cursive;
+  letter-spacing: 5px;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.pointerC {
+  cursor: pointer;
+}
